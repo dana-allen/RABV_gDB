@@ -31,8 +31,8 @@ import CladeAssignment from './views/analysis/clade_assignment/clade_assignment'
 
 
 
-import Api from './views/documentation/api/api';
-import ApiInfo from './views/documentation/api/apiInfo';
+import ApiEndpoints from './views/documentation/api/api_endpoints';
+import ApiEndpoint from './views/documentation/api/api_endpoint';
 import Help from './views/documentation/help';
 import MetaData from './views/documentation/meta_data';
 
@@ -89,8 +89,8 @@ function App() {
                 <Route path="/v_gdb"                element={<VGdb />} />
 
                 {/* API */}
-                 <Route path="/api"                 element={<Api />} />
-                <Route path="/apiInfo/:id"          element={<ApiInfo />} />
+                <Route path="/api_endpoints"       element={<ApiEndpoints />} />
+                <Route path="/api_endpoint/:id"    element={<ApiEndpoint />} />
                 
 
                 {/* Analysis */}

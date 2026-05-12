@@ -9,6 +9,9 @@ import HostDropdown from './components/HostDropDown';
 import InputDropdown from './components/InputDropDown';
 import RadioButtonDropdown from './components/RadioButtonDropDown';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+
 const BarFilter = ({ onApplyFilter, onClickReset }) => {
 
   const [filters, setFilters] = useState({});
@@ -168,13 +171,12 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
           reset={reset}
         />
 
-        <div style={{ display: "flex", gap: "5px", marginLeft: "auto" }}>
+        <div style={{ display: "flex", gap: "5px"}}>
+          <Button size="sm" className="btn-main-filled" onClick={updateFilters}>
+            <FontAwesomeIcon icon={faMagnifyingGlass} /> Search
+          </Button>
           <Button size="sm" className="btn-main-no-outline" onClick={resetFilters}>
             Reset
-          </Button>
-
-          <Button size="sm" className="btn-main-filled" onClick={updateFilters}>
-            Search
           </Button>
         </div>
       </div>

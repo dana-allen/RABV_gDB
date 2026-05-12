@@ -7,19 +7,76 @@ const VGdb = () => {
             <h2>Viral Genome Toolkit and Database</h2>
             <br></br>
             <h4 className='primary-color'>What is the Viral Genome Toolkit?</h4>
+            <br></br>
+            <div
+                style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "1.5rem",
+                }}
+                >
+                    <div className="card h-100 border-0 team-card" style={{ width: "40%" }}>
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href="https://github.com/RAGE-toolkit/RABV-gTK/tree/update_sk_version"
+                    >
+                        <img
+                        src="/static/imgs/icons/rabv-gTK.png"
+                        alt="Viral Genome Toolkit logo"
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                            display: "block",
+                            padding:"5px"
+                        }}
+                        />
+                    </a>
+                    </div>
+                
+                <div>
+                    <p style={{ margin: 0 }}>
+                        The Virus Genome Toolkit (V-gTK) and Virus Genome
+                        Database (V-gDB) is a modular and reproducible ecosystem for managing and
+                        interpreting viral genome data with a focus on biologically meaningful
+                        mutations. V-gTK provides tools for end-to-end management of viral
+                        genomes, including: 
+                    </p>
+                    <p>
+
+                        <ul>
+                            
+                            <li>data retrieval</li>
+                            <li>metadata validation</li>
+                            <li>sequence filtering</li>
+                            <li>alignment</li>
+                            <li>and phylogenetic analysis</li>
+                        </ul>
+                        
+                    </p>
+                </div>
+                
+            </div>
             <p>
-                V-gTK provides tools for organizing and curating viral sequence data, emphasizing transparency via version control and reproducibility 
-                through standardized input formats. 
+                The framework
+                emphasizes reproducibility through standardized input formats, version
+                control, and transparent data provenance, while enabling collaborative
+                curation by virologists and bioinformaticians. V-gDB complements this
+                infrastructure by supporting the creation of searchable databases
+                linking genome sequences with curated mutation data, reference
+                phylogenies, and contextual metadata.
+            </p>
+            <p>
+                The framework is implemented in Python and integrates established bioinformatics tools including BLAST, MAFFT, NextAlign, IQ-TREE, and EPA-NG. 
+                Metadata validation incorporates controlled vocabularies such as United Nations M49 country codes and the National Center for Biotechnology 
+                Information Taxonomy database to ensure consistent and high-quality datasets. 
             </p>
 
-
-            <h4 className='primary-color'>What is the Viral Genome Database?</h4>
             <p>
-                V-gDB complements this by supporting the creation of searchable, extensible databases that link genome sequences to curated mutation data, 
-                reference phylogenies, and contextual metadata. Together, they enable the development of expert-informed viral genome resources that can 
-                serve as both data repositories and analytical platforms. 
+                For more information, contact <Link className='custom-link' to="https://www.gla.ac.uk/schools/infectionimmunity/staff/josephhughes/">Dr. Joseph Hughes</Link>.
             </p>
-
+           
             
         </div>
     );

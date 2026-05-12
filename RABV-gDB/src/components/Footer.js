@@ -17,27 +17,11 @@ const Footer = () => {
         </div>
 
         <div className="col-md-10">
-          <p><small>{process.env.REACT_APP_VIRUS_ABB}-{process.env.REACT_APP_WEB_RESOURCE} is based on the <a className='custom-link' target="_blank" href="https://github.com/josephhughes/V-gTK">Viral Genome Toolkit</a> software framework. 
-            Contact <a className='custom-link' href="">Web Resource Support</a> with questions or feedback.
+          <p><small>{process.env.REACT_APP_VIRUS_ABB}-{process.env.REACT_APP_WEB_RESOURCE} is based on the <a className='custom-link' target="_blank" href="https://github.com/RAGE-toolkit/RABV-gTK/tree/update_sk_version">Viral Genome Toolkit</a> software framework. 
+            Contact <a className='custom-link' href="mailto:cvr-webresource-support@lists.cent.gla.ac.uk">Web Resource Support</a> with questions or feedback.
             <br/><span className='beta-text'>Please note this is beta software, still undergoing development and testing before its official release.</span></small>
           </p> 
         </div>
-        {/* <div className="row">
-          <div className="col-md-12">
-            <p className="text-center">
-              <a target="_blank" href="https://www.gov.uk/government/organisations/animal-and-plant-health-agency">
-                <img className='apha-logo' alt="APHA logo" src="/footer/cvrBioinformatics.png"></img>
-              </a>
-              <a target="_blank" href="http://www.gla.ac.uk/researchinstitutes/iii/cvr/">
-                <img className='mrc-logo' alt="MRC logo" src="/footer/MRC1.png"/>
-              </a>
-              <a target="_blank" href="https://www.gla.ac.uk/schools/bohvm/">
-                <img className='bohvm-logo' alt="IBAHCM logo" src="/footer/UoG_keyline_BiodiversityOneHealthVetMedicine_colour.png"></img>
-              </a>	
-
-            </p>
-          </div>
-        </div> */}
       </div>
     </div>
   );

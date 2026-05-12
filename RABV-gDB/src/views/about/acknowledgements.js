@@ -8,7 +8,7 @@ const Acknowledgments = () => {
             <h2>Acknowledgments</h2>
             <p>
                 {process.env.REACT_APP_VIRUS_ABB}-{process.env.REACT_APP_WEB_RESOURCE} is based on the {" "}
-                <a className='custom-link' target="_blank" href="https://github.com/josephhughes/V-gTK">Viral Genome Toolkit (V-gTK)</a> software framework, developed by the 
+                <a className='custom-link' target="_blank" href="https://github.com/RAGE-toolkit/RABV-gTK/tree/update_sk_version">Viral Genome Toolkit (V-gTK)</a> software framework, developed by the 
                 <a className='custom-link' target="_blank" href="http://www.gla.ac.uk/researchinstitutes/iii/cvr/"> MRC-University of Glasgow Centre for Virus Research</a>, 
                 in collaboration with the <a className='custom-link' href="https://www.gla.ac.uk/schools/bohvm/"> University of Glasgow 
                 School of Biodiversity One Health and Veterinary Medicine</a>, and the US Centers for Disease Control and Prevention.  

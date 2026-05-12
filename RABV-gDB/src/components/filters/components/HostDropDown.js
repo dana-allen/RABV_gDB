@@ -35,7 +35,7 @@ export default function HostDropdown({label, handleParams, reset}) {
                             {name:'order_category', nodes:null, parent:null, text:'Order'},
                             {name:'family', nodes:null, parent:null, text:'Family'},
                             {name:'genus', nodes:null, parent:null, text:'Genus'},
-                            {name:'species', nodes:null, parent:null, text:'Species'}
+                            {name:'species', nodes:null, parent:null, text:'Species or Common Host Name'}
     ]
 
 

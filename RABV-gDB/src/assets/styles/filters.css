@@ -65,6 +65,11 @@
     border: none;
 }
 
+.btn-filter:hover {
+  background-color: rgb(139, 0, 0, 0.6) !important;
+  color: #fff !important;
+}
+
 .btn-filter-active {
     color: #fff !important;
     background-color: rgb(139, 0, 0, 0.6) !important;

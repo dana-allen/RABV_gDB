@@ -9,7 +9,7 @@ import 'assets/styles/cards.css'
 
 library.add(faSitemap, faGear, faCapsules, faVirus, faGlobe, faDna, faToolbox);
 
-const tabs = ["Explore", "Analysis", "About"];
+const tabs = ["Explore", "Analyse", "About"];
 
 const exploreItems = [
   { title: "Sequences", description: "Browse metadata and alignments, arranged into major and minor clades.", icon: faSitemap, link:'/sequences' },
@@ -80,7 +80,7 @@ const Cards = () => {
         <div></div>
         <div className="container">
             {activeTab === "Explore" && renderCards(exploreItems)}
-            {activeTab === "Analysis" && renderCards(analysisItems)}
+            {activeTab === "Analyse" && renderCards(analysisItems)}
             {activeTab === "About" && renderCards(aboutItems)}
         </div>
     </div>

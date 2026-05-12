@@ -9,7 +9,7 @@ import APIOutput from "./components/APIOutput"
 import APIOutputTable from "./components/APIOutputTable";
 
 
-const ApiInfo = () => {
+const ApiEndpoint = () => {
 
     const { id } = useParams();
     const location = useLocation();
@@ -36,8 +36,14 @@ const ApiInfo = () => {
     return (
         <div className='container'>  
             <h2>{api["get"]["type"]} {api["path_display"]}</h2>
+            <p>
+                {api["get"]["description"]}
+                <br></br>
+                <em className='custom-link'>{process.env.REACT_APP_URL}/api/{api["path_display"]}</em>
+            </p>
+            
 
-            <p>{api["get"]["description"]}</p>
+            
 
             <h2><b>Parameters</b></h2>
             <APIPathTable api={api}/>
@@ -60,5 +66,5 @@ const ApiInfo = () => {
     );
 };
  
-export default ApiInfo;
+export default ApiEndpoint;
 

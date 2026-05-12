@@ -7,7 +7,7 @@ import { groupPathsByTags } from 'utils/apiHelper';
 import 'assets/styles/offlineApi.css'
 import 'assets/styles/tables.css'
 
-const Api = () => {
+const ApiEndpoint = () => {
 
     const [api, setApi] = useState({paths:{}})
     const [groupedPaths, setGroupedPaths] = useState({});
@@ -24,13 +24,14 @@ const Api = () => {
     
 
     useEffect(() => {
-        fetchJSONDataFrom(`${process.env.PUBLIC_URL}/json/openapi_new.json`);
+        fetchJSONDataFrom(`${process.env.PUBLIC_URL}/static/json/openapi_new.json`);
     }, []);
 
     return (
         <div className='container'>  
             <h2>API Endpoints</h2>
             <p>Implement these API endpoints to access {process.env.REACT_APP_VIRUS_ABB}-{process.env.REACT_APP_WEB_RESOURCE} data for local usage.</p>
+            {/* <p>Check back soon for more endpoints!</p> */}
 
             <div>
                 {Object.keys(groupedPaths).length > 0 && (
@@ -54,8 +55,8 @@ const Api = () => {
                                                 <td>{item.type}</td>
                                                 <td><Link state={{api:api["paths"][item.path]}}
                                                             className='custom-link' 
-                                                            to={`/apiInfo/${api["paths"][item.path]["path_url"]}`}>
-                                                        {item.path}</Link></td>
+                                                            to={`/api_endpoint/${api["paths"][item.path]["path_url"]}`}>
+                                                        {api["paths"][item.path]["path_display"]}</Link></td>
                                                 <td>{item.summary}</td>
                                             </tr>
                                         ))}
@@ -70,4 +71,4 @@ const Api = () => {
     );
 };
  
-export default Api;
+export default ApiEndpoint;

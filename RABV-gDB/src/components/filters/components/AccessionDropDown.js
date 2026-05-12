@@ -57,6 +57,7 @@ export default function AccessionDropdown({label, id, url, handleParams, reset})
 
       <Button
           size="sm"
+          // className={"btn-filter-active"}
           className={`${selectedValue ? "btn-filter-active" : "btn-filter"}`}
           onClick={() => setOpen((prev) => !prev)}
           style={{ display: "flex", alignItems: "center", gap: "6px" }}
