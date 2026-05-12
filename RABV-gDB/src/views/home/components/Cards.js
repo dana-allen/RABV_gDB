@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSitemap, faGear, faCapsules, faVirus, faGlobe, faDna, faToolbox, faHexagonNodes } from '@fortawesome/free-solid-svg-icons'
+import { faSitemap, faGear, faCapsules, faVirus, faGlobe, faDna, faToolbox, faHexagonNodes, faCircleNodes } from '@fortawesome/free-solid-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import Button from 'react-bootstrap/Button';
 
@@ -24,8 +24,8 @@ const analysisItems = [
 
 const aboutItems = [
     { title: "Team", description: "Meet the team that created RABV-gDB", icon: faGear, link:'/team' },
-    { title: "Statistics", description: "View the data statistics", icon: faDna, link:'/statistics' },
-    { title: "Viral Genome Toolkit", description: "Checkout the software to build your own database", icon: faToolbox, link:'/statistics' }
+    { title: "API", description: "View the API used for offline usage", icon: faCircleNodes, link:'/api_endpoints' },
+    { title: "Viral Genome Toolkit", description: "Checkout the software to build your own database", icon: faToolbox, link:'/v_gdb' }
   ];
 
 const Cards = () => {

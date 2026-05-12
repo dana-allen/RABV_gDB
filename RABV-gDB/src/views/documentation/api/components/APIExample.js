@@ -14,11 +14,11 @@ const APIExample = ( { api } ) => {
 
     const languageMapping = [
         {name: 'python', display_name: 'Python3'},
-        {name: 'ruby', display_name: 'Ruby'},
+        // {name: 'ruby', display_name: 'Ruby'},
         {name: 'js', display_name: 'Javascript'},
-        {name: 'java', display_name: 'Java'},
-        {name: 'R', display_name: 'R'},
-        {name: 'perl', display_name: 'Perl'}
+        // {name: 'java', display_name: 'Java'},
+        // {name: 'R', display_name: 'R'},
+        // {name: 'perl', display_name: 'Perl'}
     ];
 
 

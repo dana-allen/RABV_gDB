@@ -54,7 +54,7 @@ const NavBar = () => {
             <a className="nav-link dropdown-toggle custom-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Documentation</a>
             <div className="dropdown-menu">
               <a className="dropdown-item" href="/api_endpoints">API</a>
-              <a className="dropdown-item" href="/installation"> Installation </a>
+              {/* <a className="dropdown-item" href="/installation"> Installation </a> */}
               {/* <a className="dropdown-item" href="/help">Help</a> */}
               <a className="dropdown-item" href="/meta_data">Meta Data</a>
             </div>

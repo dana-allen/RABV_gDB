@@ -1,9 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" width="30" height="30" viewBox="16.28 14.08 123.66 144.99">
   <defs>
     <style>
+      .cls-2 {
+        fill: #4f5961;
+      }
       .cls-3 {
         fill: #008B8B;
-        <!-- fill: #35274a; -->
       }
     </style>
   </defs>

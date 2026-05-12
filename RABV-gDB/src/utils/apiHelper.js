@@ -90,7 +90,7 @@ export const getPythonCode = (api) => {
   `
   import requests
 
-  url = "http://gdb-dev.cvr.gla.ac.uk/api/${api_call}"
+  url = "${process.env.REACT_APP_URL}/api/${api_call}"
 
   headers = {
       "Content-Type": "application/json",
@@ -152,7 +152,7 @@ export const getJSCode = (api) => {
   const paramsString = getParamsString(params)
   const code = 
   `
-  server = "${process.env.REACT_APP_BACKEND_URL}"
+  server = "${process.env.REACT_APP_URL}"
   api_call = "${api_call}"
 
   // Make a GET request

@@ -17,7 +17,7 @@ const Footer = () => {
         </div>
 
         <div className="col-md-10">
-          <p><small>{process.env.REACT_APP_VIRUS_ABB}-{process.env.REACT_APP_WEB_RESOURCE} is based on the <a className='custom-link' target="_blank" href="https://github.com/RAGE-toolkit/RABV-gTK/tree/update_sk_version">Viral Genome Toolkit</a> software framework. 
+          <p><small>{process.env.REACT_APP_VIRUS_ABB}-{process.env.REACT_APP_WEB_RESOURCE} is based on the <a className='custom-link' target="_blank" href="https://github.com/centre-for-virus-research/V-gTK">Viral Genome Toolkit</a> software framework. 
             Contact <a className='custom-link' href="mailto:cvr-webresource-support@lists.cent.gla.ac.uk">Web Resource Support</a> with questions or feedback.
             <br/><span className='beta-text'>Please note this is beta software, still undergoing development and testing before its official release.</span></small>
           </p> 

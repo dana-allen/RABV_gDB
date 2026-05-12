@@ -15,14 +15,14 @@ const VGdb = () => {
                     gap: "1.5rem",
                 }}
                 >
-                    <div className="card h-100 border-0 team-card" style={{ width: "40%" }}>
+                    <div className="card h-100 border-0 team-card" style={{ width: "40%"}}>
                     <a
                         target="_blank"
                         rel="noopener noreferrer"
-                        href="https://github.com/RAGE-toolkit/RABV-gTK/tree/update_sk_version"
+                        href="https://github.com/centre-for-virus-research/V-gTK "
                     >
                         <img
-                        src="/static/imgs/icons/rabv-gTK.png"
+                        src="/static/imgs/icons/V-gTK.png"
                         alt="Viral Genome Toolkit logo"
                         style={{
                             width: "100%",
@@ -71,10 +71,6 @@ const VGdb = () => {
                 The framework is implemented in Python and integrates established bioinformatics tools including BLAST, MAFFT, NextAlign, IQ-TREE, and EPA-NG. 
                 Metadata validation incorporates controlled vocabularies such as United Nations M49 country codes and the National Center for Biotechnology 
                 Information Taxonomy database to ensure consistent and high-quality datasets. 
-            </p>
-
-            <p>
-                For more information, contact <Link className='custom-link' to="https://www.gla.ac.uk/schools/infectionimmunity/staff/josephhughes/">Dr. Joseph Hughes</Link>.
             </p>
            
             

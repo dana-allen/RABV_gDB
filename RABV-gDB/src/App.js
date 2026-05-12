@@ -99,7 +99,7 @@ function App() {
 
 
                 {/* Other */}
-                <Route path="/installation"        element={<Installation />} />
+                {/* <Route path="/installation"        element={<Installation />} /> */}
                 {/* <Route path="/advanced_search"      element={<AdvancedSearch />} /> */}
                 <Route path="/meta_data"          element={<MetaData />} />
                 

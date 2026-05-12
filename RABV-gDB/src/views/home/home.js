@@ -19,7 +19,7 @@ const Home = () => {
                     <h2 className='banner-title'><b>RABV-gDB</b></h2>
                     <h2 className='banner-subtitle'>A Rabies Virus Genome Database Resource</h2>
                 </div>
-                <ReactSVG className="banner-svg" src="/icons/home_background.svg" />
+                <ReactSVG className="banner-svg" src="/static/imgs/icons/home_background.svg" />
             </div>
 
             <Cards></Cards>
