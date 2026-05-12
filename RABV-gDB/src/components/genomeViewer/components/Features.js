@@ -66,10 +66,11 @@ export const FeatureBtnMultiple = ({ i, feature, min, range, onClick }) => {
                 width: `${relWidthPercent}%`,
                 top: `${feature.row * 5}px`,
                 height: "30px",
-                position: "absolute"
+                position: "absolute",
+                padding: "2px"
               }}
             >
-              {feature.product}
+              <strong>{feature.product}</strong>
             </div>
           );
         })}

@@ -119,8 +119,9 @@
 .features-btn {
     position: absolute;
     height: 100%;
-    background-color: #008cba;
-    border: 1px solid #008cba;
+    background-color: #4FC3F7;
+    /* border: 1px solid #008cba; */
+    border-radius: 5px;
     font-size: 10px;
     overflow: hidden;
     white-space: nowrap;
