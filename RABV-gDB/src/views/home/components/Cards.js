@@ -13,7 +13,7 @@ const tabs = ["Explore", "Analyse", "About"];
 
 const exploreItems = [
   { title: "Sequences", description: "Browse metadata and alignments, arranged into major and minor clades.", icon: faSitemap, link:'/sequences' },
-  { title: "Phylogentic Trees", description: "Explore evolutionary relationships of virus sequences", icon: faHexagonNodes, link:'/phylogeny' },
+  { title: "Phylogenetic Trees", description: "Explore evolutionary relationships of virus sequences", icon: faHexagonNodes, link:'/phylogeny' },
   { title: "Global Visualization", description: "Visualize the global distribution with an interactive map." , icon: faGlobe, link:'/global_overview'}
 ];
 

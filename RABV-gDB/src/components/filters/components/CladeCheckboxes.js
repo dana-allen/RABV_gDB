@@ -1,17 +1,18 @@
 import { useState, useRef, useEffect } from "react";
-import SearchAutocomplete from "./SearchAutocomplete";
+import DropDownAutocomplete from "./DropDownAutocomplete";
 import { Button } from 'react-bootstrap';
 
+import Checkboxes from "./Checkboxes";
 import 'assets/styles/filters.css';
 
-export default function AccessionDropdown({label, id, url, handleParams, reset}) {
+export default function CladeCheckboxes({label, id, url, handleParams, reset}) {
 
   const [open, setOpen] = useState(false);
   const [exclude, setExclude] = useState(false);
   const containerRef = useRef(null);
   const autocompleteRef = useRef(null);
 
-
+  const [selectedDropdown, setSelectedDropdown] = useState([])
 
   const [selectedValue, setSelectedValue ] = useState()
   const [preSelected, setPreselected] = useState()
@@ -21,12 +22,22 @@ export default function AccessionDropdown({label, id, url, handleParams, reset})
     handleParams(preSelected, value) 
   }
 
-  const handleIds = (value) => { 
-    value.length > 0 ? setSelectedValue(value.length) : setSelectedValue(false)
-    setPreselected(value)
-    handleParams(value, exclude) 
+  const handleIds = (value) => {
+    value.length > 0
+      ? setSelectedValue(selectedDropdown.length + 1)
+      : setSelectedValue(false);
 
+    setPreselected(value);
+
+    handleParams(value, exclude);
+
+    setSelectedDropdown((prev) => [
+      ...prev,
+      value,
+    ]);
   };
+
+  console.log("selected dropdown", selectedDropdown)
   
   
   useEffect(() => {
@@ -47,6 +58,7 @@ export default function AccessionDropdown({label, id, url, handleParams, reset})
     setPreselected()
     setExclude(false)
     setSelectedValue(false)
+    setSelectedDropdown([])
   }, [reset])
 
   return (
@@ -102,35 +114,40 @@ export default function AccessionDropdown({label, id, url, handleParams, reset})
             <label style={{ fontSize: "12px", fontWeight: "bold" }}>
               Find {label}
             </label>
-            <SearchAutocomplete
-                ref={autocompleteRef}
-                url={url}
-                idKey={id}
-                handleId={handleIds}
-                label={label}
-                preSelected={preSelected}
+            <Checkboxes onCheckboxChange={(data) => {
+              console.log(data)
+                handleParams(data);
+              }}
+                // ref={autocompleteRef}
+                // url={url}
+                // idKey={id}
+                // params={[]}
+                // handleId={handleIds}
+                // label={label}
+                // preSelected={preSelected}
             />
 
+            <hr style={{margin:'5px'}}></hr>
+
             <label style={{ fontSize: "12px", display: "flex", alignItems: "center", gap: "6px", marginTop:"2px" }}>
-              
-            <input
-              type="checkbox"
-              checked={exclude}
-              onChange={(e) => handleExclude(e.target.checked)}
-              style={{
-                appearance: "none",
-                width: "16px",
-                height: "16px",
-                border: "1px solid #767676",
-                borderRadius: "3px",
-                backgroundColor: exclude
-                  ? "var(--primary)"
-                  : "white",
-                cursor: "pointer",
-              }}
-            />
-            Exclude selected accessions
-          </label>
+              <input
+                type="checkbox"
+                checked={exclude}
+                onChange={(e) => handleExclude(e.target.checked)}
+                style={{
+                  appearance: "none",
+                  width: "16px",
+                  height: "16px",
+                  border: "1px solid #767676",
+                  borderRadius: "3px",
+                  backgroundColor: exclude
+                    ? "var(--primary)"
+                    : "white",
+                  cursor: "pointer",
+                }}
+              />
+              Exclude selected accessions
+            </label>
           </div>
         </div>
       )}

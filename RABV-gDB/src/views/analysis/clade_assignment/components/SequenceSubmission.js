@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import { FormControl, TextField } from "@mui/material";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,6 +8,7 @@ import "assets/styles/fastaAnalysis.css";
 
 const SequenceSubmission = ({ onJobFinished }) => {
   const { submitClade, data, loading, error } = useCladeSubmission();
+  const fileInputRef = useRef(null);
 
   const [sequence, setSequence] = useState("");
   const [files, setFiles] = useState([]);
@@ -21,6 +22,9 @@ const SequenceSubmission = ({ onJobFinished }) => {
   const handleResetButton = () => {
     setSequence("");
     setFiles([]);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   const updateSequence = (event) => {
@@ -40,21 +44,21 @@ const SequenceSubmission = ({ onJobFinished }) => {
   };
 
     const handleSubmitButton = async () => {
-        let payload;
+      let payload;
 
-        if (files.length > 0) {
-            const formData = new FormData();
-            formData.append("file", files[0]);
-            payload = formData;
-        } else {
-            payload = JSON.stringify({ fasta: sequence });
-        }
+      if (files.length > 0) {
+          const formData = new FormData();
+          formData.append("file", files[0]);
+          payload = formData;
+      } else {
+          payload = JSON.stringify({ fasta: sequence });
+      }
 
-        const result = await submitClade(payload); // submitClade calls postData(url, payload)
+      const result = await submitClade(payload); // submitClade calls postData(url, payload)
 
-        if (result) {
-            onJobFinished(result);
-        }
+      if (result) {
+          onJobFinished(result);
+      }
     };
 
   return (
@@ -74,7 +78,7 @@ const SequenceSubmission = ({ onJobFinished }) => {
               value={sequence}
               size="small"
               fullWidth
-              placeholder="paste sequence"
+              placeholder="paste sequence in the format of >header"
               multiline
               rows={6}
               variant="outlined"
@@ -95,7 +99,7 @@ const SequenceSubmission = ({ onJobFinished }) => {
         </div>
 
         <div className="col-9">
-          <input type="file" onChange={handleFileChange} />
+          <input type="file" ref={fileInputRef} onChange={handleFileChange} />
         </div>
       </div>
 

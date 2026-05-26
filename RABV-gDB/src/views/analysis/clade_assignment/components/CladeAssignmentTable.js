@@ -5,6 +5,7 @@ import 'assets/styles/tables.css'
 
 import { useDownload } from 'hooks';
 
+
 const CladeAssignmentTable = ( { tableRows=null } ) => {
     const { downloadFile } = useDownload();
 
@@ -21,20 +22,24 @@ const CladeAssignmentTable = ( { tableRows=null } ) => {
                 <thead >
                     <tr>
                         <th>Query Accession</th>
-                        <th>Reference Accession</th>
-                        <th>Identity Percentage</th>
-                        <th>EPA-NG Clade Assignment</th>
+                        <th>Blast Results (Identity %)</th>
+                        <th>
+                            EPA-NG Results (LWR*)
+                            <div className="th-subtext">
+                                *likelihood weight assigned to this exact taxonomic path
+                            </div>
+                        </th>
                         <th>Download Alignment</th>
                     </tr>
+                    
                 </thead>
                 <tbody>
                     
                     {tableRows.map((row, i) => (
                         <tr key={row.accession}>
                             <td>{row.accession}</td>
-                            <td><Link className='gdb-link' to={`/reference/${row.blast_ref}` }>{row.blast_ref}</Link></td>
-                            <td>{row.blast_identity}</td>
-                            <td>{row.epa_ng.major} {row.epa_ng.minor}</td>
+                            <td><Link className='gdb-link' to={`/reference/${row.blast_ref}` }>{row.blast_ref}</Link> ({row.blast_identity} %)</td>
+                            <td>{row.epa_ng.major} ({row.epa_ng.major_lwr}) {row.epa_ng.minor} ({row.epa_ng.minor_lwr})</td>
                             <td>
                                 {row.alignment ? 
                                 <Button 

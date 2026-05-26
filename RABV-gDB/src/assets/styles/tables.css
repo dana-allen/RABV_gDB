@@ -9,3 +9,10 @@
 .th-sub-header {
     font-weight: normal;
 }
+
+.th-subtext {
+  font-weight: normal;
+  font-size: 0.75rem;
+  color: #666;
+  margin-top: 4px;
+}

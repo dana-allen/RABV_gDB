@@ -19,7 +19,7 @@ urlpatterns = [
     path('filters/search_primary_accession_ids/<str:query>', api_search_primary_accession, name='api_search_primary_accession'),
     path('filters/search_isolate_ids/<str:query>', api_search_isolate_ids, name='api_search_isolate_ids'),
     path('filters/search_hosts/<str:query>', api_search_hosts, name='api_search_hosts'),
-    path('filters/search_country/<str:query>', api_search_country, name='api_search_country'),
+    path('filters/search_country/', api_search_country, name='api_search_country'),
 
     path('sequences/download_sequences_meta_data/', api_download_sequences_meta_data, name='api_download_sequences_meta_data'),
     path('alignments/download', api_download_alignments, name='api_download_alignments'),

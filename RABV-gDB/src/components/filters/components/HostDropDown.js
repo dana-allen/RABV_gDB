@@ -177,10 +177,17 @@ export default function HostDropdown({label, handleParams, reset}) {
                         checked={selected.includes(node.name)}
                         onChange={() => handleChange(node.name)}
                         style={{
-                            width: '16px',
-                            height: '16px',
-                            cursor: 'pointer'
+                            appearance: "none",
+                            width: "16px",
+                            height: "16px",
+                            border: "1px solid #767676",
+                            borderRadius: "3px",
+                            backgroundColor: selected.includes(node.name)
+                              ? "var(--primary)"
+                              : "white",
+                            cursor: "pointer",
                         }}
+
                     />
                     <span style={{ fontSize:"12px" }}>{node.text}</span>
                   </label>
@@ -201,11 +208,23 @@ export default function HostDropdown({label, handleParams, reset}) {
             ))}
           </div>
           <div style={{ marginBottom: "10px" }}>
+            <hr style={{margin:'5px'}}></hr>
             <label style={{ fontSize: "12px", display: "flex", alignItems: "center", gap: "6px", marginTop:"2px" }}>
               <input
                 type="checkbox"
                 checked={exclude}
                 onChange={(e) => setExclude(e.target.checked)}
+                style={{
+                appearance: "none",
+                width: "16px",
+                height: "16px",
+                border: "1px solid #767676",
+                borderRadius: "3px",
+                backgroundColor: exclude
+                  ? "var(--primary)"
+                  : "white",
+                cursor: "pointer",
+              }}
               />
               Exclude selected accessions
             </label>            

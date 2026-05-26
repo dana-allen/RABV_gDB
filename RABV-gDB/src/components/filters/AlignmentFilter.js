@@ -97,9 +97,17 @@ const AlignmentFilter = ({show, onClose, params, sequences_count, onApplyFilter}
     const [advancedDownload, setAdvancedDownload] = useState(false)
     const [basic, setBasic] = useState(true)
     const [advanced, setAdvanced] = useState(false)
-    const handleToggle = (e) => {
-        basic ? setBasic(false) : setBasic(true)
-        advanced ? setAdvanced(false) : setAdvanced(true)
+
+    const toggleAdvanced = () => {
+        setBasic(prev => !prev)
+        setAdvanced(prev => !prev)
+        setAdvancedDownload(prev => !prev)
+    }
+
+    const toggleBasic = () => {
+        setBasic(true)
+        setAdvanced(false)
+        setAdvancedDownload(false)
     }
     
     return (
@@ -118,31 +126,62 @@ const AlignmentFilter = ({show, onClose, params, sequences_count, onApplyFilter}
                 </p>
                 <hr></hr>
                 <div>
-                    <label key='basic' className="flex items-center space-x-2">
+                    <label
+                        key="basic"
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.5rem",
+                            cursor: "pointer"
+                        }}
+                    >
                         <input
                             type="checkbox"
-                            value={basic}
                             checked={basic}
-                            onChange={() => handleToggle()}
+                            onChange={toggleBasic}
                             className="accent-color-primary w-4 h-4"
                         />
-                        <span>&nbsp;Basic Download:</span>
+
+                        <span>Basic Download:</span>
                     </label>
                     
                     <p className='info-text'>
                         Download full genome(s) for all <b>{sequences_count ? sequences_count.toLocaleString() : ""}</b> selected sequences.
                     </p>
 
-                    <label key='advanced' className="flex items-center">
+                    <div
+                        key="advanced"
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.5rem",
+                        }}
+                    >
                         <input
                             type="checkbox"
-                            value={advanced}
                             checked={advanced}
-                            onChange={() => handleToggle()}
-                            className=" accent-color-primary w-4 h-4"
+                            onChange={toggleAdvanced}
+                            className="accent-color-primary w-4 h-4"
                         />
-                        <span onClick={e => setAdvancedDownload(!advancedDownload)} > Advanced Download: <Button className='btn-secondary-outline download-btn' size='sm' onClick={e => setAdvancedDownload(!advancedDownload)}> <FontAwesomeIcon icon={advancedDownload ? faCaretUp : faCaretDown}/></Button></span>
-                    </label>
+
+                        <span
+                            onClick={toggleAdvanced}
+                            style={{ cursor: "pointer" }}
+                        >
+                            Advanced Download:
+                        </span>
+
+                        <Button
+                            type="button"
+                            className="btn-secondary-outline download-btn"
+                            size="sm"
+                            onClick={toggleAdvanced}
+                        >
+                            {/* <FontAwesomeIcon
+                                icon={advancedDownload ? faCaretUp : faCaretDown}
+                            /> */}
+                        </Button>
+                    </div>
 
                     <p className='info-text'>
                         Select specific genome regions and corresponding nucleotides and/or codons for all <b>{sequences_count ? sequences_count.toLocaleString() : ""}</b> selected sequences.

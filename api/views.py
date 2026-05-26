@@ -88,10 +88,29 @@ def proxy_post(endpoint, request):
     try:
         url = f"{PRIVATE_API_BASE_URL}/{endpoint}"
 
-        response = requests.post(
-            url,
-            json=json.loads(request.body),
-        )
+        content_type = request.content_type or ""
+
+        # FILE UPLOAD
+        if content_type.startswith("multipart/form-data"):
+
+            uploaded_file = request.FILES.get("file")
+
+            files = {
+                "file": (
+                    uploaded_file.name,
+                    uploaded_file.read(),
+                    uploaded_file.content_type,
+                )
+            }
+
+            response = requests.post(url, files=files)
+
+        # JSON REQUEST
+        else:
+            response = requests.post(
+                url,
+                json=json.loads(request.body),
+            )
 
         response.raise_for_status()
 
@@ -133,8 +152,8 @@ def api_search_isolate_ids(request, query):
 def api_search_hosts(request, query):
     return proxy_get(f"filters/search_hosts/{query}", request, safe=False)
 
-def api_search_country(request, query):
-    return proxy_get(f"filters/search_country/{query}", request, safe=False)
+def api_search_country(request):
+    return proxy_get(f"filters/search_country/", request, safe=False)
 
 def api_version(request):
     return proxy_get(f"get_vgt_version/", request, safe=False)
