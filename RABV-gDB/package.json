@@ -2,6 +2,7 @@
   "name": "rabv-gdb",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://127.0.0.1:8000",
   "dependencies": {
     "@babel/plugin-syntax-jsx": "^7.24.7",
     "@emotion/react": "^11.14.0",
@@ -108,7 +109,6 @@
     "webpack": "^5.101.3",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.2"
-  },
-    "proxy": "http://localhost:8000"
+  }
   
 }

@@ -18,8 +18,9 @@ export default function CladeCheckboxes({label, id, url, handleParams, reset}) {
   const [preSelected, setPreselected] = useState()
 
   const handleExclude = (value) => {
+    console.log("handle exclude", value)
     setExclude(value)
-    handleParams(preSelected, value) 
+    // handleParams(preSelected, value) 
   }
 
   const handleIds = (value) => {
@@ -28,7 +29,7 @@ export default function CladeCheckboxes({label, id, url, handleParams, reset}) {
       : setSelectedValue(false);
 
     setPreselected(value);
-
+    console.log("EXclude", exclude)
     handleParams(value, exclude);
 
     setSelectedDropdown((prev) => [
@@ -37,9 +38,11 @@ export default function CladeCheckboxes({label, id, url, handleParams, reset}) {
     ]);
   };
 
-  console.log("selected dropdown", selectedDropdown)
-  
-  
+  useEffect(() => {
+    handleParams(preSelected || [], exclude);
+  }, [preSelected, exclude]);
+
+    
   useEffect(() => {
       function handleClickOutside(event) {
           const inDropdown = containerRef.current?.contains(event.target);
@@ -116,7 +119,8 @@ export default function CladeCheckboxes({label, id, url, handleParams, reset}) {
             </label>
             <Checkboxes onCheckboxChange={(data) => {
               console.log(data)
-                handleParams(data);
+                // handleParams(data, exclude);
+                handleIds(data)
               }}
                 // ref={autocompleteRef}
                 // url={url}

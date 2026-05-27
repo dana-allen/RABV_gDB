@@ -11,6 +11,7 @@ export { default as useLineage } from "./useLineage";
 export { default as useHostMutation } from "./useHostMutation";
 
 export { default as useTaxonomy } from "./useTaxonomy";
+export { default as useRegion } from "./useRegion";
 
 export { default as useErrorHandler } from "./useErrorHandler";
 export { default as useDownload } from "./useDownload";

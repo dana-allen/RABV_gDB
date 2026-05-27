@@ -89,7 +89,7 @@ const Sequences = () => {
       </ul>
       
       <div className='col-3'>
-        <CladeTree onCladeSelect={handleCladeFilters}/>
+        {/* <CladeTree onCladeSelect={handleCladeFilters}/> */}
       </div>
       <div>
         <BarFilter onApplyFilter={handleBarFilters} onClickReset={handleReset}/>

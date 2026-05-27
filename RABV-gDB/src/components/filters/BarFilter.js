@@ -9,6 +9,8 @@ import Dropdown from './components/DropDown';
 import HostDropdown from './components/HostDropDown';
 import InputDropdown from './components/InputDropDown';
 import RadioButtonDropdown from './components/RadioButtonDropDown';
+import RegionDropdown from './components/RegionDropDown';
+
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
@@ -48,6 +50,8 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
 
   const handleClades = (value, exclude = false) => {
 
+    console.log("handle clades", value, exclude)
+
     const flattenClades = (clades = []) => {
       const EPA_major_clade = [];
       const EPA_minor_clade = [];
@@ -70,7 +74,6 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
       
     const flattened = flattenClades(value)
 
-    console.log("FLATTENED", flattened)
     setFilters((prev) => {
       const updated = { ...prev };
 
@@ -81,13 +84,16 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
       if (value && value.length > 0) {
         // updated[exclude ? excludeKey : normalKey] = value;
         updated["EPA_major_clade"] = flattened.EPA_major_clade;
-        updated["EPA_minor_clade"] = flattened.EPA_minor_clade;
+        if (flattened.EPA_minor_clade.length > 0) {
+          updated["EPA_minor_clade"] = flattened.EPA_minor_clade;
+        } 
+
+      if (exclude) {
+          updated.exclude_clades = true
+        } else {
+          delete updated.exclude_clades
+        }
       }
-
-      // if(exclude){
-      //   updated.exclude_clades == 
-      // }
-
       return updated;
     });
   };
@@ -167,13 +173,14 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <span><strong>FILTERS:</strong></span>
 
-        {/* <CladeCheckboxes 
+
+        <CladeCheckboxes 
           label={'Clades'}
           id={'primary_accession'}
           url={'/api/filters/search_primary_accession_ids/'}
           handleParams={handleClades}
           reset={reset}
-        /> */}
+        />
 
         <AccessionDropdown
           label={'Primary Accession'}
@@ -191,11 +198,17 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
           reset={reset}
         />
 
-        <Dropdown
+        {/* <Dropdown
           label={'Country'}
           id={'display_name'}
           url={'/api/filters/search_country/'}
           handleParams={handleCountry}
+          reset={reset}
+        /> */}
+
+        <RegionDropdown
+          label={'Region'}
+          handleParams={handleTaxonomySelections}
           reset={reset}
         />
 
