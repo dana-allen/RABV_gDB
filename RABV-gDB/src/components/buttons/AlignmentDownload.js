@@ -9,8 +9,6 @@ const AlignmentDownload = ({filters, sequences_count}) => {
     const handleClose = () => { setShow(false) }
     // const download = () => { setShow(true)}
 
-    const [params, setParams] = useState()
-
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -41,12 +39,7 @@ const AlignmentDownload = ({filters, sequences_count}) => {
     };
 
 
-    const onShowFilter = () => {
-
-    }
-
     const handleApplyFilter = (e) => {
-        console.log("alignment filters", e)
         const final_params = { ...filters["filters"], ...e };
         download(final_params);
     };

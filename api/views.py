@@ -149,11 +149,20 @@ def api_search_primary_accession(request, query):
 def api_search_isolate_ids(request, query):
     return proxy_get(f"filters/search_isolate_ids/{query}", request, safe=False)
 
-def api_search_hosts(request, query):
-    return proxy_get(f"filters/search_hosts/{query}", request, safe=False)
+def api_search_hosts(request):
+    return proxy_get(f"filters/search_hosts/", request, safe=False)
 
 def api_search_country(request):
     return proxy_get(f"filters/search_country/", request, safe=False)
+
+def api_search_m49_region(request):
+    return proxy_get(f"filters/search_m49_region/", request, safe=False)
+
+def api_search_m49_sub_region(request):
+    return proxy_get(f"filters/search_m49_sub_region/", request, safe=False)
+
+def api_search_m49_intermediate(request):
+    return proxy_get(f"filters/search_m49_intermediate/", request, safe=False)
 
 def api_version(request):
     return proxy_get(f"get_vgt_version/", request, safe=False)

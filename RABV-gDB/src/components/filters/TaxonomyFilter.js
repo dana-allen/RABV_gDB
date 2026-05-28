@@ -28,7 +28,7 @@ const TaxonomyFilter = ({ref, label, taxa_level, idKey, params, handleId}) => {
 
   return (
     <div ref={ref}>
-    <Autocomplete
+      <Autocomplete
             disablePortal
             defaultValue={[]} // Pre-filled options
             value={selectedOptions}
@@ -73,7 +73,7 @@ const TaxonomyFilter = ({ref, label, taxa_level, idKey, params, handleId}) => {
                 },
               }}
             />
-          </div>
+    </div>
   );
 };
 

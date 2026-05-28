@@ -106,7 +106,7 @@ const PagingButtonsWithCursor = ({
             <div className="dropdown-menu dropdown-menu-end">
               <div className="dropdown-item">
                 <MetaDataDownload
-                  filters={ filters }
+                  filters={ {filters} }
                 /> 
               </div>
               <div className="dropdown-item">
