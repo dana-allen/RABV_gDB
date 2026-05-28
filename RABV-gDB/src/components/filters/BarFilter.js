@@ -42,7 +42,7 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
 
   };
 
-
+  const handleHost = (value, exclude) => updateFilterKey("host", value, exclude);
   const handleNucleotideId = (value, exclude) => updateFilterKey("primary_accession", value, exclude);
   const handleIsolateId = (value, exclude) => updateFilterKey("isolate", value, exclude);
   const handleCountry = (value, exclude) => updateFilterKey("country", value, exclude);
@@ -117,6 +117,24 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
     });
   };
 
+  const handleRegionSelections = (value, exclude) => {
+
+    console.log("handle regions", value)
+    
+    setFilters(prev => {
+      const updated = { ...prev };
+      delete updated.m49_region_id;
+      delete updated.m49_sub_region_id;
+      delete updated.m49_intermediate_region_id;
+      if (exclude) {
+        updated.exclude_region = true
+      } else {
+        delete updated.exclude_region
+      }
+      return { ...updated, ...value };
+    });
+  };
+
   const handleSequenceLength = (value) => {
     setFilters(prev => {
       const updated = { ...prev };
@@ -182,6 +200,26 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
           reset={reset}
         />
 
+        <Dropdown
+          label={'Host'}
+          id={'host'}
+          url={'/api/filters/search_hosts/'}
+          handleParams={handleHost}
+          reset={reset}
+        />
+        
+        <RegionDropdown
+          label={'Region'}
+          handleParams={handleRegionSelections}
+          reset={reset}
+        />
+
+        <HostDropdown
+          label={'Taxonomy'}
+          handleParams={handleTaxonomySelections}
+          reset={reset}
+        />
+
         <AccessionDropdown
           label={'Primary Accession'}
           id={'primary_accession'}
@@ -206,17 +244,7 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
           reset={reset}
         /> */}
 
-        <RegionDropdown
-          label={'Region'}
-          handleParams={handleTaxonomySelections}
-          reset={reset}
-        />
 
-        <HostDropdown
-          label={'Host'}
-          handleParams={handleTaxonomySelections}
-          reset={reset}
-        />
 
         <InputDropdown
           label={'Sequence Length'}

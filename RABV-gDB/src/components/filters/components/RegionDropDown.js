@@ -3,9 +3,9 @@ import { Button } from 'react-bootstrap';
 import RegionFilter from "../RegionFilter";
 import 'assets/styles/filters.css';
 
-export default function RegionDropdown({label, handleParams, reset}) {
+export default function RegionDropdown({label, handleParams, reset, alwaysOpen=false}) {
 
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(alwaysOpen);
     const [exclude, setExclude] = useState(false)
     const containerRef = useRef(null);
     const autocompleteRef = useRef(null);
@@ -26,14 +26,14 @@ export default function RegionDropdown({label, handleParams, reset}) {
       return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    const [taxonomySelections, setTaxonomySelections] = useState({})
+    const [regionSelections, setRegionSelections] = useState({})
     const [selected, setSelected] = useState([])
 
     const regionTree = [
-                            {name:'m49_region_id', nodes:null, parent:null, text:'Global Region'},
-                            {name:'m49_intermediate_region', nodes:null, parent:null, text:'Intermediate Region'},
-                            {name:'m49_sub_region_id', nodes:null, parent:null, text:'Sub Region'},
-                            {name:'country', nodes:null, parent:null, text:'Country'}
+                            {name:'m49_region_id', display_name: 'Region', nodes:null, parent:null, text:'Global Region', label:'display_name'},
+                            {name:'m49_intermediate_region_id', display_name: 'Intermediate region', nodes:null, parent:null, text:'Intermediate Region', label:'display_name'},
+                            {name:'m49_sub_region_id', display_name: "Sub-region", nodes:null, parent:null, text:'Sub Region', label:'display_name'},
+                            {name:'m49_code', display_name: "Country", nodes:null, parent:null, text:'Country', label:'display_name'}
     ]
 
 
@@ -48,7 +48,7 @@ export default function RegionDropdown({label, handleParams, reset}) {
       )
 
       if (wasSelected) {
-        setTaxonomySelections(prev => {
+        setRegionSelections(prev => {
             const copy = { ...prev }
             delete copy[name]
             return copy
@@ -58,7 +58,7 @@ export default function RegionDropdown({label, handleParams, reset}) {
     }
 
     const handleNodeIds = (nodeName) => (ids) => {
-      setTaxonomySelections(prev => {
+      setRegionSelections(prev => {
           if (!ids || ids.length === 0) {
               const copy = { ...prev }
               delete copy[nodeName]
@@ -72,7 +72,7 @@ export default function RegionDropdown({label, handleParams, reset}) {
     }
 
     const clearInputs = () => {
-      setTaxonomySelections({})
+      setRegionSelections({})
       setSelected([])
       setSelectedValue(false)
       setExclude(false)
@@ -81,9 +81,9 @@ export default function RegionDropdown({label, handleParams, reset}) {
 
 
     useEffect(() => {
-      Object.keys(taxonomySelections).length > 0 ? setSelectedValue(Object.keys(taxonomySelections).length) : setSelectedValue(false)
-      handleParams(taxonomySelections, exclude)
-    }, [taxonomySelections, exclude]);
+      Object.keys(regionSelections).length > 0 ? setSelectedValue(Object.keys(regionSelections).length) : setSelectedValue(false)
+      handleParams(regionSelections, exclude)
+    }, [regionSelections, exclude]);
 
     useEffect(() => {
       clearInputs()
@@ -91,37 +91,14 @@ export default function RegionDropdown({label, handleParams, reset}) {
     }, [reset])
 
   return (
-    <div
-      ref={containerRef}
-      style={{ position: "relative", display: "inline-block" }}
-    >
+    <div ref={containerRef} className='filter-box'>
 
-        <Button
-            size="sm"
-            className={`${selectedValue ? "btn-filter-active" : "btn-filter"}`}
-            onClick={() => setOpen((prev) => !prev)}
-            style={{ display: "flex", alignItems: "center", gap: "6px" }}
-            >
-            {label}
-
-            {selectedValue && (
-                <span
-                style={{
-                    background: "var(--primary)",
-                    color: "black",
-                    borderRadius: "4px",
-                    padding: "2px 6px",
-                    fontSize: "12px",
-                    fontWeight: "bold",
-                    minWidth: "18px",
-                    textAlign: "center",
-                    border: "1px solid var(--primary)"
-                }}
-                >
-                {selectedValue}
-                </span>
-            )}
-        </Button>
+      <Button
+        size="sm"
+        className={`${selectedValue ? "btn-filter-active" : "btn-filter"}`}
+        onClick={() => setOpen((prev) => !prev)}> 
+        {label} {selectedValue && ( <span className='filter-count'> {selectedValue} </span> )}
+      </Button>
 
       {open && (
         <div
@@ -130,7 +107,7 @@ export default function RegionDropdown({label, handleParams, reset}) {
             top: "100%",
             marginTop: "6px",
             background: "white",
-            // border: "1px solid #ddd",
+            border: "1px solid #ddd",
             borderRadius: "6px",
             padding: "12px",
             width: "260px",
@@ -138,22 +115,23 @@ export default function RegionDropdown({label, handleParams, reset}) {
             zIndex: 2,
           }}
         >
-          {/* <button
-              onClick={clearInputs}
-              style={{
-                position: "absolute",
-                top: "6px",
-                right: "8px",
-                border: "none",
-                background: "transparent",
-                cursor: "pointer",
-                fontSize: "14px",
-                fontWeight: "bold",
-                color: "#888"
-              }}
-            >
+          <button
+            onClick={clearInputs}
+            style={{
+              position: "absolute",
+              top: "6px",
+              right: "8px",
+              border: "none",
+              background: "transparent",
+              cursor: "pointer",
+              fontSize: "14px",
+              fontWeight: "bold",
+              color: "#888"
+            }}
+          >
             ×
-          </button> */}
+          </button>
+
 
           <div>
             <label style={{ fontSize: "12px", fontWeight: "bold" }}>
@@ -192,10 +170,10 @@ export default function RegionDropdown({label, handleParams, reset}) {
                   {selected.includes(node.name) && (
                     <div style={{padding: '5px 0px 0px 20px'}}>
                         <RegionFilter ref={autocompleteRef}
-                                        label={node.name} 
+                                        label={node.display_name} 
                                         region_level={node.name} 
-                                        idKey={node.name} 
-                                        params={taxonomySelections} 
+                                        idKey={node.label} 
+                                        params={regionSelections} 
                                         handleId={handleNodeIds(node.name)} 
                         />
                     </div>
@@ -204,15 +182,16 @@ export default function RegionDropdown({label, handleParams, reset}) {
               </div>
             ))}
           </div>
-          <hr style={{margin:'5px'}}></hr>
+          <hr className='exclude-hr'/>
           <div style={{ marginBottom: "10px" }}>
-            <label style={{ fontSize: "12px", display: "flex", alignItems: "center", gap: "6px", marginTop:"2px" }}>
+            <label className='exclude-label'>
               <input
+                className='exclude-checkbox'
                 type="checkbox"
                 checked={exclude}
                 onChange={(e) => setExclude(e.target.checked)}
               />
-              Exclude selected accessions
+              Exclude selected regions
             </label>            
           </div>
         </div>

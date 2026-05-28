@@ -46,10 +46,7 @@ export default function RadioButtonDropdown({label, reset, onChange}) {
 
   
   return (
-    <div
-      ref={containerRef}
-      style={{ position: "relative", display: "inline-block" }}
-    >
+    <div ref={containerRef} className='filter-box'>
 
         <Button
             size="sm"
@@ -81,26 +78,13 @@ export default function RadioButtonDropdown({label, reset, onChange}) {
 
       {open && (
         
-        <div
-          style={{
-            position: "absolute",
-            top: "100%",
-            marginTop: "6px",
-            background: "white",
-            border: "1px solid #ddd",
-            borderRadius: "6px",
-            padding: "12px",
-            width: "240px",
-            boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-            zIndex: 2,
-          }}
-        >
+        <div className='dropdown-box'>
         <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
           <label style={{ fontWeight: "bold", fontSize: "12px" }}>Find Excluded Sequences</label>
             <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-
                 <label style={{ display: "flex", alignItems: "center", gap: "6px", fontSize:'12px' }}>
                   <input
+                    className='filter-radio'
                     type="radio"
                     name="lengthMode"
                     value="1"
@@ -112,6 +96,7 @@ export default function RadioButtonDropdown({label, reset, onChange}) {
 
                 <label style={{ display: "flex", alignItems: "center", gap: "6px", fontSize:'12px' }}>
                   <input
+                    className='filter-radio'
                     type="radio"
                     name="lengthMode"
                     value="0"
@@ -121,10 +106,7 @@ export default function RadioButtonDropdown({label, reset, onChange}) {
                   No
                 </label>
               </div>
-
-              
             </div>
-            
         </div>
       )}
     </div>

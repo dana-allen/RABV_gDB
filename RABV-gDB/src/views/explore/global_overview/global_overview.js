@@ -19,6 +19,7 @@ import CladeTree from "components/trees/CladeTree"
 import { formatMetaDataRegions } from 'assets/javascript/formatHelper'
 
 
+
 const GlobalOverview = () => {
   const mapRef = useRef(null);
 
@@ -86,7 +87,7 @@ const GlobalOverview = () => {
 
   const handleReset = useCallback((data) => {}, []);
 
-
+   
   return (
     <div className="container">
       <h2>Global Overview</h2>
@@ -115,7 +116,7 @@ const GlobalOverview = () => {
             
 
             <div className='col-3'>
-              <CladeTree onCladeSelect={handleFiltersChange}/>
+              {/* <CladeTree onCladeSelect={handleFiltersChange}/> */}
               
               <div className="col right-align" style={{ display: "flex", justifyContent: "flex-end" }}>
                 <Button

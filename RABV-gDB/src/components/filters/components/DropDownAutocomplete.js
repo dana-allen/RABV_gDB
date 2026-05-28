@@ -11,41 +11,38 @@ import SearchIcon from "@mui/icons-material/Search";
 import "assets/styles/filters.css";
 
 
-const DropDownAutocomplete = ({ref, label, idKey, params, handleId, preSelected = []}) => {
+const DropDownAutocomplete = ({ref, url, label, idKey, params, handleId, preSelected = []}) => {
 
   const [ids, setIds] = useState([]) 
-  const newParams = params[idKey] && params[idKey].split(',')
+  const newParams = params && params.split(',')
+  console.log("newParams",newParams)
 
   const handleChange = (event, value) => {
+    console.log(value)
     setSelectedOptions(value)
     handleId(`${value}`)
   }
-  const url = `${`/api/filters/search_country/`}`;
+
   const { data, loading, error } = useFetch(url);
 
-
-  
-
   useEffect(() => {
-    if (data){
-      setIds(data)
-    }
+    if (data){ setIds(data) }
   }, [data]);
 
   const [selectedOptions, setSelectedOptions] = useState(newParams)
 
   return (
     <div ref={ref}>
-    <Autocomplete
-            disablePortal
-            defaultValue={[]} // Pre-filled options
-            value={selectedOptions}
-            multiple
-            size="small"
-            onChange={handleChange}
-            options={[... new Set(ids.map(x => x[idKey]))]}
-            // loading={isPending}
-            renderInput={(params) => (
+      <Autocomplete
+        disablePortal
+        defaultValue={[]} // Pre-filled options
+        value={selectedOptions}
+        multiple
+        size="small"
+        onChange={handleChange}
+        options={[... new Set(ids.map(x => x[idKey]))]}
+        // loading={isPending}
+        renderInput={(params) => (
           <TextField
             {...params}
             placeholder={`Find ${label}`}
@@ -68,20 +65,20 @@ const DropDownAutocomplete = ({ref, label, idKey, params, handleId, preSelected 
               ),
             }}
           />
-              )}
-              sx={{
-                width: 220,
-                "& .MuiOutlinedInput-root": {
-                  minHeight: 25,
-                  fontSize: "0.75rem",
-                },
-                "& .MuiAutocomplete-tag": {
-                  height: 20,
-                  fontSize: "0.75rem",
-                },
-              }}
-            />
-          </div>
+          )}
+          sx={{
+            width: 220,
+            "& .MuiOutlinedInput-root": {
+              minHeight: 25,
+              fontSize: "0.75rem",
+            },
+            "& .MuiAutocomplete-tag": {
+              height: 20,
+              fontSize: "0.75rem",
+            },
+          }}
+      />
+    </div>
   );
 };
 

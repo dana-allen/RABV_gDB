@@ -10,7 +10,7 @@ const TaxonomyFilter = ({ref, label, taxa_level, idKey, params, handleId}) => {
 
   const [ids, setIds] = useState([]) 
   const newParams = params[idKey] && params[idKey].split(',')
-
+  console.log("taxa params", newParams)
   const handleChange = (event, value) => {
     setSelectedOptions(value)
     handleId(`${value}`)

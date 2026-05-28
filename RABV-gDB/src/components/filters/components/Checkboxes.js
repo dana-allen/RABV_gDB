@@ -21,91 +21,107 @@ const BpCheckedIcon = styled(BpIcon)({
 });
 
 
-export default function Checkboxes({ onCheckboxChange }) {
+export default function Checkboxes({ onCheckboxChange, preSelected = [], }) {
   const { lineageTree = [], loading, error } = useLineage();
 
   // children selection state
   // const [checked, setChecked] = useState({});
   const [selectedClades, setSelectedClades] =
-  useState({});
+  useState(() => {
+    const initial = {};
 
-  // parent expansion state (SHOW/HIDE children)
-  const [expanded, setExpanded] = useState({});
+    preSelected.forEach((item) => {
+      initial[item.parent] = item.children || [];
+    });
+
+    return initial;
+  });
+
+  const [expanded, setExpanded] =
+    useState(() => {
+      const initial = {};
+
+      preSelected.forEach((item) => {
+        initial[item.parent] = true;
+      });
+
+      return initial;
+  });
 
   // Toggle parent = expand/collapse only
-const handleParentChange = (parent, isOpen) => {
-  setExpanded((prev) => ({
-    ...prev,
-    [parent.name]: isOpen,
-  }));
+  const handleParentChange = (parent, isOpen) => {
+    setExpanded((prev) => ({
+      ...prev,
+      [parent.name]: isOpen,
+    }));
 
-  setSelectedClades((prev) => {
-    const updated = { ...prev };
+    setSelectedClades((prev) => {
+      const updated = { ...prev };
 
-    if (isOpen) {
-      // add parent with empty children
-      if (!updated[parent.name]) {
-        updated[parent.name] = [];
+      if (isOpen) {
+        // add parent with empty children
+        if (!updated[parent.name]) {
+          updated[parent.name] = [];
+        }
+      } else {
+        // remove parent completely
+        delete updated[parent.name];
       }
-    } else {
-      // remove parent completely
-      delete updated[parent.name];
-    }
 
-    const payload = Object.entries(updated).map(
-      ([parentName, children]) => ({
-        parent: parentName,
-        children,
-      })
-    );
+      const payload = Object.entries(updated).map(
+        ([parentName, children]) => ({
+          parent: parentName,
+          children,
+        })
+      );
 
-    onCheckboxChange?.(payload);
+      onCheckboxChange?.(payload);
 
-    return updated;
-  });
-};
+      return updated;
+    });
+  };
 
   // Toggle child selection only
-const handleChildChange = (
-  parent,
-  child,
-  isChecked
-) => {
-  setSelectedClades((prev) => {
-    const currentChildren =
-      prev[parent.name] || [];
+  const handleChildChange = (
+    parent,
+    child,
+    isChecked
+  ) => {
+    setSelectedClades((prev) => {
+      const currentChildren =
+        prev[parent.name] || [];
 
-    let updatedChildren;
+      let updatedChildren;
 
-    if (isChecked) {
-      updatedChildren = [
-        ...currentChildren,
-        child.name,
-      ];
-    } else {
-      updatedChildren =
-        currentChildren.filter(
-          (c) => c !== child.name
-        );
-    }
+      if (isChecked) {
+        updatedChildren = [
+          ...currentChildren,
+          child.name,
+        ];
+      } else {
+        updatedChildren =
+          currentChildren.filter(
+            (c) => c !== child.name
+          );
+      }
 
-    const updated = {
-      ...prev,
-      [parent.name]: updatedChildren,
-    };
+      const updated = {
+        ...prev,
+        [parent.name]: updatedChildren,
+      };
 
-    const payload = Object.entries(updated).map(
-      ([parentName, children]) => ({
-        parent: parentName,
-        children,
-      })
-    );
+      const payload = Object.entries(updated).map(
+        ([parentName, children]) => ({
+          parent: parentName,
+          children,
+        })
+      );
 
-    onCheckboxChange?.(payload);
+      onCheckboxChange?.(payload);
 
-    return updated;
-  });
-};
+      return updated;
+    });
+  };
 
 
   return (
@@ -118,57 +134,57 @@ const handleChildChange = (
         return (
           <Box key={parent.name}>
             {/* Parent (EXPAND ONLY) */}
-<FormControlLabel
-  sx={{
-    margin: 0,
+            <FormControlLabel
+              sx={{
+                margin: 0,
 
-    "& .MuiFormControlLabel-label": {
-      fontSize: "12px",
-    },
+                "& .MuiFormControlLabel-label": {
+                  fontSize: "12px",
+                },
 
-    "& .MuiCheckbox-root": {
-      padding: "2px",
-    },
+                "& .MuiCheckbox-root": {
+                  padding: "2px",
+                },
 
-    display: "flex",
-    alignItems: "center",
-    gap: "6px",
-    borderRadius: "8px",
-    cursor: "pointer",
-    marginBottom: "3px"
-  }}
-  label={parent.text}
-  control={
-    <Checkbox
-      checked={isExpanded}
-      onChange={(e) =>
-        handleParentChange(
-          parent,
-          e.target.checked
-        )
-      }
-      checkedIcon={<BpCheckedIcon />}
-      icon={<BpIcon />}
-      
-      size="small"
-    />
-  }
-/>
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+                borderRadius: "8px",
+                cursor: "pointer",
+                marginBottom: "3px"
+              }}
+              label={parent.text}
+              control={
+                <Checkbox
+                  checked={isExpanded}
+                  onChange={(e) =>
+                    handleParentChange(
+                      parent,
+                      e.target.checked
+                    )
+                  }
+                  checkedIcon={<BpCheckedIcon />}
+                  icon={<BpIcon />}
+                  
+                  size="small"
+                />
+              }
+            />
 
             {/* Children (only when expanded) */}
             {children.length > 0 && isExpanded && (
               <Box
-  sx={{
-    ml: 4,
-    display: "flex",
-    flexDirection: "column",
-    gap: "0px", // or 2px if you want slight spacing
-    "& .MuiFormControlLabel-root": {
-      margin: 0,
-      padding: 0,
-    },
-  }}
->
+                sx={{
+                  ml: 4,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0px", // or 2px if you want slight spacing
+                  "& .MuiFormControlLabel-root": {
+                    margin: 0,
+                    padding: 0,
+                  },
+                }}
+              >
                 {children.map((child) => (
                   <FormControlLabel
                     key={child.name}
@@ -193,16 +209,16 @@ const handleChildChange = (
                     control={
                       <Checkbox
                         checked={
-  selectedClades[parent.name]?.includes(
-    child.name
-  ) || false
-}
-                        onChange={(e) =>
-                          handleChildChange(
-  parent,
-  child,
-  e.target.checked
-)
+                          selectedClades[parent.name]?.includes(
+                            child.name
+                          ) || false
+                        }
+                                                onChange={(e) =>
+                                                  handleChildChange(
+                          parent,
+                          child,
+                          e.target.checked
+                        )
                         }
                               checkedIcon={<BpCheckedIcon />}
                         icon={<BpIcon />}

@@ -105,53 +105,20 @@ export default function InputDropdown({label, id, options, handleParams, reset, 
     }, [reset])
 
   return (
-    <div ref={containerRef} style={{ position: "relative", display: "inline-block" }} >
+    <div ref={containerRef} className='filter-box'>
 
-      
-    <Button
+  
+      <Button
         size="sm"
         className={`${selectedValue ? "btn-filter-active" : "btn-filter"}`}
-        onClick={() => setOpen((prev) => !prev)}
-        style={{ display: "flex", alignItems: "center", gap: "6px" }}
-        >
-        {label}
-
-        {selectedValue && (
-            <span
-            style={{
-                background: "var(--primary)",
-                color: "black",
-                borderRadius: "4px",
-                padding: "2px 6px",
-                fontSize: "12px",
-                fontWeight: "bold",
-                minWidth: "18px",
-                textAlign: "center",
-                border: "1px solid var(--primary)"
-            }}
-            >
-            {selectedValue}
-            </span>
-        )}
-    </Button>
+        onClick={() => setOpen((prev) => !prev)}> 
+        {label} {selectedValue && ( <span className='filter-count'> {selectedValue} </span> )}
+      </Button>
 
 
       {open && (
         
-        <div
-          style={{
-            position: "absolute",
-            top: "100%",
-            marginTop: "6px",
-            background: "white",
-            border: "1px solid #ddd",
-            borderRadius: "6px",
-            padding: "12px",
-            width: "240px",
-            boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-            zIndex: 2,
-          }}
-        >
+        <div className='dropdown-box'>
           <button
             onClick={clearInputs}
             style={{
@@ -174,6 +141,7 @@ export default function InputDropdown({label, id, options, handleParams, reset, 
 
                 <label style={{ display: "flex", alignItems: "center", gap: "6px", fontSize:'12px' }}>
                   <input
+                    className='filter-radio'
                     type="radio"
                     name="lengthMode"
                     value="gt"
@@ -185,6 +153,7 @@ export default function InputDropdown({label, id, options, handleParams, reset, 
 
                 <label style={{ display: "flex", alignItems: "center", gap: "6px", fontSize:'12px' }}>
                   <input
+                    className='filter-radio'
                     type="radio"
                     name="lengthMode"
                     value="lt"
@@ -196,6 +165,7 @@ export default function InputDropdown({label, id, options, handleParams, reset, 
 
                 <label style={{ display: "flex", alignItems: "center", gap: "6px", fontSize:'12px'}}>
                   <input
+                    className='filter-radio'
                     type="radio"
                     name="lengthMode"
                     value="between"
@@ -212,16 +182,16 @@ export default function InputDropdown({label, id, options, handleParams, reset, 
                 value={mode === "gt" ? min : max}
                 size="small"
                 sx={{
-          width: 220,
-          "& .MuiOutlinedInput-root": {
-            minHeight: 25,
-            fontSize: "0.75rem",
-          },
-          "& .MuiAutocomplete-tag": {
-            height: 20,
-            fontSize: "0.75rem",
-          },
-        }}
+                    width: 220,
+                    "& .MuiOutlinedInput-root": {
+                      minHeight: 25,
+                      fontSize: "0.75rem",
+                    },
+                    "& .MuiAutocomplete-tag": {
+                      height: 20,
+                      fontSize: "0.75rem",
+                    },
+                  }}
                 onChange={(e) =>
                 handleInputChange(mode === "gt" ? "min" : "max", e.target.value)
                 }
@@ -251,16 +221,16 @@ export default function InputDropdown({label, id, options, handleParams, reset, 
                 value={max}
                 onChange={(e) => handleInputChange("max", e.target.value)}
                 sx={{
-          width: 220,
-          "& .MuiOutlinedInput-root": {
-            minHeight: 25,
-            fontSize: "0.75rem",
-          },
-          "& .MuiAutocomplete-tag": {
-            height: 20,
-            fontSize: "0.75rem",
-          },
-        }}
+                  width: 220,
+                  "& .MuiOutlinedInput-root": {
+                    minHeight: 25,
+                    fontSize: "0.75rem",
+                  },
+                  "& .MuiAutocomplete-tag": {
+                    height: 20,
+                    fontSize: "0.75rem",
+                  },
+                }}
                 InputProps={{
 
                   startAdornment: (
@@ -283,16 +253,16 @@ export default function InputDropdown({label, id, options, handleParams, reset, 
                 value={min}
                 onChange={(e) => handleInputChange("min", e.target.value)}
                 sx={{
-          width: 220,
-          "& .MuiOutlinedInput-root": {
-            minHeight: 25,
-            fontSize: "0.75rem",
-          },
-          "& .MuiAutocomplete-tag": {
-            height: 20,
-            fontSize: "0.75rem",
-          },
-        }}
+                  width: 220,
+                  "& .MuiOutlinedInput-root": {
+                    minHeight: 25,
+                    fontSize: "0.75rem",
+                  },
+                  "& .MuiAutocomplete-tag": {
+                    height: 20,
+                    fontSize: "0.75rem",
+                  },
+                }}
                 InputProps={{
 
                   startAdornment: (

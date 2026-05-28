@@ -35,7 +35,7 @@ export default function HostDropdown({label, handleParams, reset}) {
                             {name:'order_category', nodes:null, parent:null, text:'Order'},
                             {name:'family', nodes:null, parent:null, text:'Family'},
                             {name:'genus', nodes:null, parent:null, text:'Genus'},
-                            {name:'species', nodes:null, parent:null, text:'Species or Common Host Name'}
+                            {name:'species', nodes:null, parent:null, text:'Species'}
     ]
 
 
@@ -93,37 +93,14 @@ export default function HostDropdown({label, handleParams, reset}) {
     }, [reset])
 
   return (
-    <div
-      ref={containerRef}
-      style={{ position: "relative", display: "inline-block" }}
-    >
+    <div ref={containerRef} className='filter-box'>
 
-        <Button
-            size="sm"
-            className={`${selectedValue ? "btn-filter-active" : "btn-filter"}`}
-            onClick={() => setOpen((prev) => !prev)}
-            style={{ display: "flex", alignItems: "center", gap: "6px" }}
-            >
-            {label}
-
-            {selectedValue && (
-                <span
-                style={{
-                    background: "var(--primary)",
-                    color: "black",
-                    borderRadius: "4px",
-                    padding: "2px 6px",
-                    fontSize: "12px",
-                    fontWeight: "bold",
-                    minWidth: "18px",
-                    textAlign: "center",
-                    border: "1px solid var(--primary)"
-                }}
-                >
-                {selectedValue}
-                </span>
-            )}
-        </Button>
+      <Button
+        size="sm"
+        className={`${selectedValue ? "btn-filter-active" : "btn-filter"}`}
+        onClick={() => setOpen((prev) => !prev)}> 
+        {label} {selectedValue && ( <span className='filter-count'> {selectedValue} </span> )}
+      </Button>
 
       {open && (
         <div
@@ -208,25 +185,15 @@ export default function HostDropdown({label, handleParams, reset}) {
             ))}
           </div>
           <div style={{ marginBottom: "10px" }}>
-            <hr style={{margin:'5px'}}></hr>
-            <label style={{ fontSize: "12px", display: "flex", alignItems: "center", gap: "6px", marginTop:"2px" }}>
+            <hr className='exclude-hr'/>
+            <label className='exclude-label'>
               <input
+                className='exclude-checkbox'
                 type="checkbox"
                 checked={exclude}
-                onChange={(e) => setExclude(e.target.checked)}
-                style={{
-                appearance: "none",
-                width: "16px",
-                height: "16px",
-                border: "1px solid #767676",
-                borderRadius: "3px",
-                backgroundColor: exclude
-                  ? "var(--primary)"
-                  : "white",
-                cursor: "pointer",
-              }}
+                onChange={ (e) => setExclude(e.target.checked) }
               />
-              Exclude selected accessions
+              Exclude selected hosts
             </label>            
           </div>
         </div>

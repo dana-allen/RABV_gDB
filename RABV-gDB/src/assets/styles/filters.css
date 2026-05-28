@@ -63,6 +63,9 @@
     color: var(--primary) !important;
     background-color: #fff !important;
     border: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .btn-filter:hover {
@@ -74,6 +77,9 @@
     color: #fff !important;
     background-color: rgb(139, 0, 0, 0.6) !important;
     border: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .filter-badge {
@@ -81,4 +87,67 @@
     background-color: var(--primary) !important;
     border: none;
 }
+
+.filter-count {
+    background: var(--primary);
+    color: black;
+    border-radius: 4px;
+    padding: "2px 6px";
+    font-size: 12px;
+    font-weight: bold;
+    min-width: 18px;
+    text-align: center;
+    border: 1px solid var(--primary);
+}
+
+.filter-box {
+    position: relative;
+    display: inline-block;
+
+}
+.dropdown-box {
+    position: absolute;
+    top: 100%;
+    margin-top: 6px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 12px;
+    width: 240px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 2;
+}
+
+.exclude-label {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 2px;
+}
+
+.exclude-checkbox {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #767676;
+    border-radius: 3px;
+    background: white;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.exclude-checkbox:checked {
+    background-color: var(--primary);
+}
+
+.exclude-hr {
+    margin: 5px;
+}
+
+.filter-radio {
+  accent-color: var(--primary);
+}
+
+
 

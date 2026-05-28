@@ -50,54 +50,17 @@ export default function AccessionDropdown({label, id, url, handleParams, reset})
   }, [reset])
 
   return (
-    <div
-      ref={containerRef}
-      style={{ position: "relative", display: "inline-block" }}
-    >
+    <div ref={containerRef} className='filter-box'>
 
       <Button
-          size="sm"
-          // className={"btn-filter-active"}
-          className={`${selectedValue ? "btn-filter-active" : "btn-filter"}`}
-          onClick={() => setOpen((prev) => !prev)}
-          style={{ display: "flex", alignItems: "center", gap: "6px" }}
-          >
-          {label}
-
-          {selectedValue && (
-              <span
-              style={{
-                  background: "var(--primary)",
-                  color: "black",
-                  borderRadius: "4px",
-                  padding: "2px 6px",
-                  fontSize: "12px",
-                  fontWeight: "bold",
-                  minWidth: "18px",
-                  textAlign: "center",
-                  border: "1px solid var(--primary)"
-              }}
-              >
-              {selectedValue}
-              </span>
-          )}
+        size="sm"
+        className={`${selectedValue ? "btn-filter-active" : "btn-filter"}`}
+        onClick={() => setOpen((prev) => !prev)} >
+        {label} {selectedValue && ( <span className='filter-count'> {selectedValue} </span> )}
       </Button>
 
       {open && (
-        <div
-          style={{
-            position: "absolute",
-            top: "100%",
-            marginTop: "6px",
-            background: "white",
-            border: "1px solid #ddd",
-            borderRadius: "6px",
-            padding: "12px",
-            width: "240px",
-            boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-            zIndex: 2,
-          }}
-        >
+        <div className='dropdown-box'>
           <div style={{ marginBottom: "10px" }}>
             <label style={{ fontSize: "12px", fontWeight: "bold" }}>
               Find {label}
@@ -111,24 +74,13 @@ export default function AccessionDropdown({label, id, url, handleParams, reset})
                 preSelected={preSelected}
             />
 
-            <label style={{ fontSize: "12px", display: "flex", alignItems: "center", gap: "6px", marginTop:"2px" }}>
-              
+            <label className='exclude-label'>
             <input
-              type="checkbox"
-              checked={exclude}
-              onChange={(e) => handleExclude(e.target.checked)}
-              style={{
-                appearance: "none",
-                width: "16px",
-                height: "16px",
-                border: "1px solid #767676",
-                borderRadius: "3px",
-                backgroundColor: exclude
-                  ? "var(--primary)"
-                  : "white",
-                cursor: "pointer",
-              }}
-            />
+                className='exclude-checkbox'
+                type="checkbox"
+                checked={exclude}
+                onChange={ (e) => handleExclude(e.target.checked) }
+              />
             Exclude selected accessions
           </label>
           </div>
