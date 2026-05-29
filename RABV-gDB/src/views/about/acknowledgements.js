@@ -13,9 +13,7 @@ const Acknowledgments = () => {
                 in collaboration with the <a className='custom-link' href="https://www.gla.ac.uk/schools/bohvm/"> University of Glasgow 
                 School of Biodiversity One Health and Veterinary Medicine</a>, and the US Centers for Disease Control and Prevention.  
             </p>
-
-            <p>We thank Rob Gifford and Josh Singer for the inspiration of {process.env.REACT_APP_VIRUS_ABB}-{process.env.REACT_APP_WEB_RESOURCE} from GLUE. </p>
-
+            
             <div className="row">
                 <div className="col-md-3">
                     <div className="card h-100 border-0 team-card">
@@ -35,7 +33,23 @@ const Acknowledgments = () => {
                         </div>
                     </div>
                 </div>
+                <div className="col-md-3">
+                    <div className="card h-100 border-0 team-card">
+                        <div className="d-flex align-items-center p-2">
+                            <a target="_blank" href="https://wellcome.org/">
+                                <img className='wellcome-logo' alt="Wellcome logo" src="/static/imgs/footer/wellcome.png"></img>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <br></br>
+            <p>
+                A previous version, RABV-GLUE, was underpinned by the <a className='custom-link' target="_blank" href="https://github.com/giffordlabcvr/gluetools"> GLUE software </a> 
+                developed by Rob Gifford and Josh Singer (<a className='custom-link' target="_blank" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9162366/">https://pmc.ncbi.nlm.nih.gov/articles/PMC9162366/</a>).
+            </p>
+
         </div>
     );
 };

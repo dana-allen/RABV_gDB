@@ -31,3 +31,20 @@
     word-wrap: break-word;
     white-space: normal;
 }
+
+.logo-link {
+    display: inline-block;
+    width: fit-content;
+}
+
+.logo-link img {
+    display: block;
+}
+
+/* Optional logo sizing */
+.mrc-logo,
+.bohvm-logo,
+.wellcome-logo {
+    max-width: 60%;
+    height: auto;
+}

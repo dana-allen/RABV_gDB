@@ -6,8 +6,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 # Replace with your private API URL
 
-# PRIVATE_API_BASE_URL = "http://gdb-dev.cvr.gla.ac.uk/api"
-PRIVATE_API_BASE_URL = "http://localhost:8001/api"
+PRIVATE_API_BASE_URL = "http://gdb-dev.cvr.gla.ac.uk/api"
+# PRIVATE_API_BASE_URL = "http://localhost:8001/api"
 
 def proxy_get_download(endpoint, request=None, safe=True):
     """
