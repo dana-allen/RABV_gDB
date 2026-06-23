@@ -14,12 +14,12 @@ import 'assets/styles/filters.css'
 
 const AlignmentFilter = ({show, onClose, params, sequences_count, onApplyFilter}) => {
 
-    const features = [{name:'Glycoprotein', text:'Glycoprotein'}, 
-                                                {name:'Large protein / RNA polymerase', text:'Large protein / RNA polymerase'},
-                                                {name:'Matrix protein', text:'Matrix protein'},
-                                                {name:'Nucleoprotein', text:'Nucleoprotein'},
-                                                {name:'Phosphoroprotein', text:'Phosphoroprotein'}
-                                            ];
+    const features = [{name:'transmembrane glycoprotein G', text:'Glycoprotein'}, 
+                    {name:'L protein', text:'Large protein / RNA polymerase'},
+                    {name:'M2 protein', text:'Matrix protein'},
+                    {name:'nucleoprotein N', text:'Nucleoprotein'},
+                    {name:'phosphoprotein M1', text:'Phosphoroprotein'}
+                ];
 
     const [genomeDisplay, setGenomeDisplay] = useState('');
     const [fullOrPartial, setFullOrPartial] = useState('entirety');
