@@ -45,7 +45,7 @@ import LoadingWheel from './components/LoadingWheel';
 import { ErrorHandlerProvider } from './contexts/ErrorHandlerContext';
 import ErrorMessage from './components/ErrorMessage';
 
-import Phylogeny from './views/explore/phylogeny';
+import Phylogeny from 'views/explore/phylogeny/phylogeny';
 import Acknowledgments from 'views/about/acknowledgements';
 import VGdb from 'views/about/v_gdb';
 

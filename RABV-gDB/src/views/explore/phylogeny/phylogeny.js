@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 import { useDownload, usePhylogenyTree } from 'hooks'
 import { useLoadingWheelHandler, useErrorHandler } from 'contexts';
 
+import TreeTable from "./components/TreeTable";
 // Style Sheets 
 import 'assets/styles/phylogeny.css' //VERY IMPORTANT This class controls the taxonium component tree height
 
@@ -13,29 +14,15 @@ const Phylogeny = () => {
   const { triggerError } = useErrorHandler();
   const [sourceData, setSourceData] = useState(null);
 
+  const [selectedTree, setSelectedTree] = useState()
 
-  const { tree, meta_data, loading, error } = usePhylogenyTree();
+  const { trees, meta_data, loading, error } = usePhylogenyTree();
   const { downloadFile } = useDownload();
 
-
-  const handleQuery = (e) => {
-    console.log("query", e)
-  }
-//   const default_query =  {
-//   // srch: JSON.stringify([]),
-//   // enabled: JSON.stringify({ [first_search.key]: true }),
-//   // backend: "",
-//   // xType: "x_dist",
-//   // mutationTypesEnabled: JSON.stringify({ aa: true, nt: false }),
-//   // treenomeEnabled: false,
-// };
-  const default_query = {
-    "srch": "[{\"key\":\"aa1\",\"type\":\"name\",\"method\":\"text_match\",\"text\":\"AF36\",\"gene\":\"S\",\"position\":484,\"new_residue\":\"any\",\"min_tips\":0}],",
-    "srch": "[{\"key\":\"aa1\",\"type\":\"name\",\"method\":\"text_match\",\"text\":\"AF365\",\"gene\":\"S\",\"position\":484,\"new_residue\":\"any\",\"min_tips\":0}]"
-
-}
   useEffect(() => {
-    if (tree) {
+    if (trees) {
+
+      setSelectedTree(trees[0])
       
       const metadata = {
         filename: "metadata.csv",
@@ -47,18 +34,40 @@ const Phylogeny = () => {
               status: "loaded",
               filename: "tree.nwk",
               // data: tree,
-              data: tree.newick,
+              data: trees[0].newick,
               filetype: "nwk",
               metadata: metadata,
             });
     }
-  }, [tree]);
+  }, [trees]);
 
   useEffect(() => {
     triggerLoadingWheel(loading)
     triggerError(error)
   }, [loading, error]);
-  // console.log("updateQuery:", updateQuery);
+
+  const handleTreeClick = (value) => {
+    
+    setSelectedTree(trees[value])
+    const metadata = {
+        filename: "metadata.csv",
+        data: meta_data,
+        status: "loaded",
+        filetype: "meta_csv",
+      };
+    setSourceData({
+              status: "loaded",
+              filename: "tree.nwk",
+              // data: tree,
+              data: trees[value].newick,
+              filetype: "nwk",
+              metadata: metadata,
+            });
+
+  }
+
+
+
   return (
     <div className="container" >
       <h2>Phylogenetic Tree</h2>
@@ -68,20 +77,20 @@ const Phylogeny = () => {
         which may be chosen by selecting Colour by. The tree may be searched for tip names or metadata by entering text into the Search box.
       </p>
       <div>
-        {tree && <h2>{tree.tree_name}</h2> }
-        {tree &&
+        {trees && <TreeTable data={trees} onTreeClick={handleTreeClick} />}
+      </div>
+      <div>
+        {selectedTree && <h2>{selectedTree.name}</h2> }
+        {selectedTree &&
           <div style={{'textAlign':'right'}}> 
-            <Button size='sm' className='btn-main-filled' onClick={() => downloadFile(tree.newick, tree.tree_name+".newick", "newick")}>
+            <Button size='sm' className='btn-main-filled' onClick={() => downloadFile(selectedTree.newick, selectedTree.name+".newick", "newick")}>
               Download Tree
             </Button> 
           </div>
         }
-        {/* {sourceData && <Taxonium sourceData={sourceData} query={default_query}/> } */}
-        {sourceData && <Taxonium sourceData={sourceData} /> }
-        {/* {sourceData && <Taxonium sourceData={sourceData} updateQuery={(query) => {
-    console.log("Query updated:", query);
-    // Do whatever you want with the query object
-  }}/>} */}
+
+        {sourceData && <Taxonium key={selectedTree.name} sourceData={sourceData} /> }
+
       </div>
       
     </div>

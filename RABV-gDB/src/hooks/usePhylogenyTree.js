@@ -6,8 +6,8 @@ function usePhylogenyTree() {
     const url = `/api/phylogeny/tree/`;
     const { data, ...rest } = useFetch(url);
 
-    const tree = data && data.tree
-
+    const trees = data && data.tree
+    console.log(data)
     //  Convert to CSV text
     const csvHeader = "primary_accession,major_clade,minor_clade,collection_year,country,phylum,class,order,family,genus,species\n";
     const csvBody = data && data.meta_data
@@ -17,7 +17,7 @@ function usePhylogenyTree() {
     const meta_data = csvHeader + csvBody;
     // const meta_data = null
 
-    return {tree, meta_data, ...rest };
+    return {trees, meta_data, ...rest };
 
 };
 

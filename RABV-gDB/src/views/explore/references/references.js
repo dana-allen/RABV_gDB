@@ -9,7 +9,6 @@ import { useLoadingWheelHandler, useErrorHandler } from 'contexts';
 import SequencesTable from "../sequences/SequencesTable"
 
 // Generic Components
-import CladeTree from 'components/trees/CladeTree';
 import PagingButtonsWithCursor from 'components/buttons/PagingButtonsWithCursor';
 
 // Styling 
@@ -24,33 +23,30 @@ const References = ({  } ) => {
     const [params, setParams] = useState({"items_per_page":10, "accession_type":"reference"});
 
     const { sequences, nextCursor, prevCursor, totalCount, loading, error } = useSequences(params);
+    const [cursorReset, setCursorReset] = useState(false)
 
+    const handleCursorChange = (newCursors) => {
 
+        console.log(newCursors)
 
-    const handleFiltersChange = useCallback((data) => {
-        setFilters(data);
-
-        const keysToRemove = ["items_per_page", "exclusion_status", "accession_type"];
-
-        setParams((prev) => {
-        // Keep only keys in keysToRemove
-            const filteredPrev = Object.fromEntries(
-            Object.entries(prev).filter(([key]) => keysToRemove.includes(key))
-            );
-
-            // If data is empty, just return filteredPrev (removes all other keys)
-            if (!data || Object.keys(data).length === 0) {
-                return filteredPrev;
+        Object.keys(newCursors).forEach(key => {
+        if (newCursors[key] === undefined) {
+            delete newCursors[key];
+        }
+        });
+        setParams(prev => {
+            const next = { ...prev };
+            if (newCursors.items_per_page ){
+                delete next.items_per_page
             }
-
-            // Otherwise merge new data with filteredPrev
-            return {
-                ...filteredPrev,
-                ...data,
-            };
+                
+            delete next.next_cursor;
+            delete next.prev_cursor;
+            return {...newCursors, ...next};
         });
 
-    }, []);
+    }
+
 
     useEffect(() => {
 
@@ -66,13 +62,13 @@ const References = ({  } ) => {
                 This dataset contains all the {process.env.REACT_APP_VIRUS_NAME} virus reference sequences.
                 View all sequences <Link className='custom-link' to='/sequences' >here</Link>.
             </p>
-            <ul className='size-12-font tight-list'>
+            {/* <ul className='size-12-font tight-list'>
                 <li>Click on a clade to view the references within that clade.</li>
-                {/* <li>Use the <em>Filters</em> button to view advanced filtering options.</li> */}
+                <li>Use the <em>Filters</em> button to view advanced filtering options.</li>
     
-            </ul>
+            </ul> */}
             <div className='col-3'>
-                <CladeTree onCladeSelect={handleFiltersChange}/>
+                {/* <CladeTree onCladeSelect={handleFiltersChange}/> */}
             </div>
             {/* <FilterBar onApplyFilter={handleFiltersChange}/> */}
             <hr></hr>
@@ -80,12 +76,14 @@ const References = ({  } ) => {
             {sequences && 
             <div className='padding-table'>
                 <PagingButtonsWithCursor
-                filters={filters}
-                totalCount={totalCount}
-                nextCursor={nextCursor}
-                prevCursor={prevCursor}
-                setParams={setParams}
-            />
+                    filters={{...filters}}
+                    totalCount={totalCount}
+                    nextCursor={nextCursor}
+                    prevCursor={prevCursor}
+                    onCursorChange={handleCursorChange}
+                    cursorReset={cursorReset}
+                />
+
 
               <SequencesTable data={sequences} type={'reference'} />
           </div>

@@ -7,11 +7,11 @@ import { useLoadingWheelHandler, useErrorHandler  } from "contexts"
 
 // Specific Components
 import SequencesTable from "./SequencesTable"
+import CladeTree from 'components/trees/CladeTree';
 
 // Generic Components
 import PagingButtonsWithCursor from 'components/buttons/PagingButtonsWithCursor';
 import BarFilter from 'components/filters/BarFilter';
-
 // Stylesheets
 import 'assets/styles/sequences.css';
 
@@ -19,6 +19,7 @@ import 'assets/styles/sequences.css';
 const Sequences = () => {
 
   const location = useLocation();
+
   const location_filters = location.state?.filters || {};
 
   const initialParams = {
@@ -31,43 +32,18 @@ const Sequences = () => {
 
   const { triggerError } = useErrorHandler();
   const { triggerLoadingWheel } = useLoadingWheelHandler();
+  const [cladeFilters, setCladeFilters] = useState({});
   const [barFilters, setBarFilters] = useState({});
 
   const { sequences, nextCursor, prevCursor, totalCount, loading, error } = useSequences(params);
 
-  const handleReset = useCallback((data) => { }, []);
+  const handleReset = useCallback((data) => { setCladeFilters({}); }, []);
 
+  const handleCladeFilters = useCallback((data) => { setCladeFilters(data || {}); }, []);
 
   const handleBarFilters = useCallback((data) => { setBarFilters(data || {}); }, []);
   const [cursorReset, setCursorReset] = useState(false)
   const isFirstRender = useRef(true);
-
-
-  const handleCursorChange = (newCursors) => {
-
-    Object.keys(newCursors).forEach(key => {
-      if (newCursors[key] === undefined) {
-        delete newCursors[key];
-      }
-    });
-
-
-    setParams(prev => {
-      const next = { ...prev };
-      if (newCursors.items_per_page ){
-        delete next.items_per_page
-      }
-        
-      delete next.next_cursor;
-      delete next.prev_cursor;
-      return {...newCursors, ...next};
-    });
-
-  }
-
-  console.log(params)
-
-
   useEffect(() => {
 
     if (isFirstRender.current) {
@@ -78,13 +54,14 @@ const Sequences = () => {
     setParams(prev => ({
       items_per_page: prev.items_per_page || 10,
       exclusion_status: prev.exclusion_status || "0",
+      ...cladeFilters,
       ...barFilters
     }));
 
     setCursorReset(!cursorReset)
 
 
-  }, [barFilters]);
+  }, [cladeFilters, barFilters]);
 
   useEffect(() => {
     triggerLoadingWheel(loading)
@@ -112,6 +89,7 @@ const Sequences = () => {
       </ul>
       
       <div className='col-3'>
+        {/* <CladeTree onCladeSelect={handleCladeFilters}/> */}
       </div>
       <div>
         <BarFilter onApplyFilter={handleBarFilters} onClickReset={handleReset}/>
@@ -123,11 +101,11 @@ const Sequences = () => {
         <div className='padding-table'>
 
           <PagingButtonsWithCursor
-            filters={{...barFilters}}
+            filters={{...barFilters, ...cladeFilters}}
             totalCount={totalCount}
             nextCursor={nextCursor}
             prevCursor={prevCursor}
-            onCursorChange={handleCursorChange}
+            setParams={setParams}
             cursorReset={cursorReset}
           />
 

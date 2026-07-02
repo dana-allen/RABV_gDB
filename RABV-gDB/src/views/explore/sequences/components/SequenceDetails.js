@@ -81,6 +81,7 @@ const SequenceDetails = ({ meta_data, alignment }) => {
                             <td><b>Coverage of Genome Region</b><br/>based on homology with<br/><Link className='custom-link' to={`/reference/${alignment.reference_accession}`}>{alignment.reference_accession}</Link></td>
                             <td><div>
                                 {alignment.features.map((feature, featureIndex) => {
+                                    console.log("start ", feature.cds_start, "end", feature.cds_end)
                                     let coverage = formatGenomeCoverage(alignment.query_alignment_sequence, feature.cds_start, feature.cds_end)
                                     return (
                                         <div key={`coverage-details-${featureIndex}`}>

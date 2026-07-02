@@ -47,7 +47,7 @@ const Sequence = () => {
         if (error) triggerError(error);
     
     }, [loading, error]);
-    console.log(insertions)
+    console.log("alignment", alignment)
 
     const pubmedId = meta_data?.pubmed_id;
 
@@ -95,17 +95,17 @@ const Sequence = () => {
                     <br></br>
     
 
-                    { meta_data.exclusion_status === "0" && alignment &&
+                    { meta_data.exclusion_status === 0 && alignment &&
                         <div className="row">
                             <div className="col-md-6">
                                 <h4 className='title-sub'>Alignment</h4>
                             </div>
                             <div className="col-md-6 text-end">
                                 <Button size='sm' className='btn-main-filled' onClick={() => downloadFile('>'+id+'\n'+alignment["query_alignment_sequence"], id+"_aligned.fasta", "fasta")}>
-                                Download Alignment
+                                    Download Alignment
                                 </Button>
                                 <Button size='sm' className='btn-main-filled ms-2' onClick={() => downloadPng(viewerRef, id)}>
-                                Download PNG
+                                    Download PNG
                                 </Button>
                             </div>
                             
@@ -114,7 +114,6 @@ const Sequence = () => {
                                 <div ref={viewerRef}>
                                     <GenomeViewer data={alignment}/>
                                 </div>
-
                              
                             }
                         </div>

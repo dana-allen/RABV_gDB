@@ -25,6 +25,8 @@ urlpatterns = [
     path('filters/search_m49_sub_region_id/', api_search_m49_sub_region, name='search_m49_sub_region'),
 
     path('sequences/download_sequences_meta_data/', api_download_sequences_meta_data, name='api_download_sequences_meta_data'),
+    path('sequences/download_sequences/', api_download_sequences, name='api_download_sequences'),
+
     path('alignments/download', api_download_alignments, name='api_download_alignments'),
 
     path('analysis/clade_assignment/', api_analysis_clade_assignment, name='api_analysis_clade_assignment'),

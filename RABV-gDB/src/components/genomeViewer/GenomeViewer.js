@@ -14,7 +14,6 @@ const GenomeViewer = ({ data }) => {
     
     const [selectedFeature, setSelectedFeature] = useState(null);
     
-
     const reference_accession = data ? data["reference_accession"] : null
     const query_alignment_sequence = data ? data["query_alignment_sequence"] ? {"query_alignment_sequence":data["query_alignment_sequence"], "query_alignment_id":data["query_alignment_id"]} : null : null
     const query_aligned_sequences = data ? data["query_aligned_sequences"] : null

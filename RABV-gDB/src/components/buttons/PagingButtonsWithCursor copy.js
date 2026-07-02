@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import AlignmentDownload from "components/buttons/AlignmentDownload";
 import MetaDataDownload from "./MetaDataDownload";
-import SequenceDownload from "./SequenceDownload";
 
 const PagingButtonsWithCursor = ({
     filters,
@@ -10,47 +9,42 @@ const PagingButtonsWithCursor = ({
     nextCursor,
     prevCursor,
     setParams,
-    cursorReset,
-    onCursorChange
+    cursorReset
   }) => {
 
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [startNum, setStartNum] = useState(1);
   const [endNum, setEndNum] = useState(10);
 
+
   const handleFirstPage = () => {
-    onCursorChange({next_cursor:undefined, prev_cursor: undefined, items_per_page: itemsPerPage})
-    // setParams({ items_per_page: itemsPerPage, exclusion_status: "0", ...filters });
+    setParams({ items_per_page: itemsPerPage, exclusion_status: "0", ...filters });
     setStartNum(1);
     setEndNum(itemsPerPage);
   };
 
   const handleNextPage = () => {
-    onCursorChange({next_cursor: nextCursor, items_per_page: itemsPerPage})
-    // setParams({ next_cursor: nextCursor, items_per_page: itemsPerPage,exclusion_status: "0", ...filters });
+    setParams({ next_cursor: nextCursor, items_per_page: itemsPerPage,exclusion_status: "0", ...filters });
     setStartNum(prev => prev + itemsPerPage);
     setEndNum(prev => prev + itemsPerPage);
   };
 
   const handlePreviousPage = () => {
-    onCursorChange({next_cursor:undefined, prev_cursor: prevCursor, items_per_page: itemsPerPage})
-    // setParams({ prev_cursor: prevCursor, items_per_page: itemsPerPage, exclusion_status: "0", ...filters });
+    setParams({ prev_cursor: prevCursor, items_per_page: itemsPerPage, exclusion_status: "0", ...filters });
     setStartNum(prev => prev - itemsPerPage);
     setEndNum(prev => prev - itemsPerPage);
   };
 
   const handleLastPage = () => {
-    onCursorChange({next_cursor:undefined, prev_cursor: 0, items_per_page: itemsPerPage})
     const start = Math.max(totalCount - itemsPerPage + 1, 1);
-    // setParams({ prev_cursor: 0, items_per_page: itemsPerPage, exclusion_status: "0", ...filters });
+    setParams({ prev_cursor: 0, items_per_page: itemsPerPage, exclusion_status: "0", ...filters });
     setStartNum(start);
     setEndNum(totalCount);
   };
 
   const onItemsPerPageChange = (num) => {
-    onCursorChange({next_cursor:undefined, prev_cursor: undefined, items_per_page: num})
     setItemsPerPage(num);
-    // setParams({ items_per_page: num, ...filters });
+    setParams({ items_per_page: num, ...filters });
     setStartNum(1);
     setEndNum(num);
   };
@@ -112,11 +106,6 @@ const PagingButtonsWithCursor = ({
             <div className="dropdown-menu dropdown-menu-end">
               <div className="dropdown-item">
                 <MetaDataDownload
-                  filters={ {filters} }
-                /> 
-              </div>
-              <div className="dropdown-item">
-                <SequenceDownload
                   filters={ {filters} }
                 /> 
               </div>

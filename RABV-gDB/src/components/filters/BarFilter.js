@@ -10,6 +10,7 @@ import HostDropdown from './components/HostDropDown';
 import InputDropdown from './components/InputDropDown';
 import RadioButtonDropdown from './components/RadioButtonDropDown';
 import RegionDropdown from './components/RegionDropDown';
+import GenomeCoverageDropdown from './components/GenomeCoverageDropDown';
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -48,9 +49,12 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
   const handleCountry = (value, exclude) => updateFilterKey("country", value, exclude);
   const handleExclusion = (value) => updateFilterKey("exclusion_status", value); 
 
+  const handleGenomeCoverage = () => {
+
+  }
+
   const handleClades = (value, exclude = false) => {
 
-    console.log("handle clades", value, exclude)
 
     const flattenClades = (clades = []) => {
       const EPA_major_clade = [];
@@ -213,6 +217,12 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
           handleParams={handleRegionSelections}
           reset={reset}
         />
+
+        {/* <GenomeCoverageDropdown 
+          label={'Genome Coverage'}
+          handleParams={handleGenomeCoverage}
+          reset={reset}
+        /> */}
 
         <HostDropdown
           label={'Taxonomy'}
