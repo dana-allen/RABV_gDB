@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 import 'assets/styles/filters.css';
 
 import AccessionDropdown from './components/AccessionDropDown';
-import Dropdown from './components/DropDown';
+// import CommonHostDropdown from './components/CommonHostDropDown';
 import HostDropdown from './components/HostDropDown';
 import InputDropdown from './components/InputDropDown';
 import RadioButtonDropdown from './components/RadioButtonDropDown';
@@ -49,7 +49,25 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
   const handleCountry = (value, exclude) => updateFilterKey("country", value, exclude);
   const handleExclusion = (value) => updateFilterKey("exclusion_status", value); 
 
-  const handleGenomeCoverage = () => {
+  const handleGenomeCoverage = (value, exclude) => {
+
+    console.log("handle genome", value)
+    
+    setFilters(prev => {
+      const updated = { ...prev };
+      delete updated.full_genome;
+      delete updated.nucleoprotein;
+      delete updated.phosphoprotein;
+      delete updated.m2_protein;
+      delete updated.glycoprotein;
+      delete updated.l_protein;
+      if (exclude) {
+        updated.exclude_coverage = true
+      } else {
+        delete updated.exclude_coverage
+      }
+      return { ...updated, ...value };
+    });
 
   }
 
@@ -103,7 +121,6 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
   };
 
   const handleTaxonomySelections = (value, exclude) => {
-    
     setFilters(prev => {
       const updated = { ...prev };
       delete updated.phylum;
@@ -122,9 +139,7 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
   };
 
   const handleRegionSelections = (value, exclude) => {
-
-    console.log("handle regions", value)
-    
+    console.log(value)
     setFilters(prev => {
       const updated = { ...prev };
       delete updated.m49_region_id;
@@ -203,14 +218,14 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
           handleParams={handleClades}
           reset={reset}
         />
-
-        <Dropdown
+{/* 
+        <CommonHostDropdown
           label={'Host'}
           id={'host'}
           url={'/api/filters/search_hosts/'}
           handleParams={handleHost}
           reset={reset}
-        />
+        /> */}
         
         <RegionDropdown
           label={'Region'}
@@ -218,11 +233,11 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
           reset={reset}
         />
 
-        {/* <GenomeCoverageDropdown 
+        <GenomeCoverageDropdown 
           label={'Genome Coverage'}
           handleParams={handleGenomeCoverage}
           reset={reset}
-        /> */}
+        />
 
         <HostDropdown
           label={'Taxonomy'}

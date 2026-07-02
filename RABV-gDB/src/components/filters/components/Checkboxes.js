@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { styled } from '@mui/material/styles';
-import { useLineage } from "hooks";
+
 
 
 const BpIcon = styled('span')(({ theme }) => ({
@@ -21,8 +21,8 @@ const BpCheckedIcon = styled(BpIcon)({
 });
 
 
-export default function Checkboxes({ onCheckboxChange, preSelected = [], }) {
-  const { lineageTree = [], loading, error } = useLineage();
+export default function Checkboxes({ data, onCheckboxChange, preSelected = [], }) {
+  
 
   // children selection state
   // const [checked, setChecked] = useState({});
@@ -126,7 +126,7 @@ export default function Checkboxes({ onCheckboxChange, preSelected = [], }) {
 
   return (
     <Box>
-      {lineageTree.map((parent) => {
+      {data.map((parent) => {
         const children = parent.nodes || [];
 
         const isExpanded = !!expanded[parent.name];

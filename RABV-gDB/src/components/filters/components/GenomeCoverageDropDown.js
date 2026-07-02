@@ -2,7 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from 'react-bootstrap';
 import RegionFilter from "../RegionFilter";
 import 'assets/styles/filters.css';
-
+import { Box, TextField, InputAdornment, MenuItem } from '@mui/material';
+import SearchIcon from "@mui/icons-material/Search";
 export default function GenomeCoverageDropdown({label, handleParams, reset, alwaysOpen=false}) {
 
     const [open, setOpen] = useState(alwaysOpen);
@@ -30,13 +31,13 @@ export default function GenomeCoverageDropdown({label, handleParams, reset, alwa
     const [selected, setSelected] = useState([])
 
     const regionTree = [
-                            {name:'m49_region_id', display_name: 'Gene', nodes:null, parent:null, text:'Full genome', label:'display_name'},
-                            {name:'m49_region_id', display_name: 'Gene', nodes:null, parent:null, text:'nucleoprotein N', label:'display_name'},
-                            {name:'m49_intermediate_region_id', display_name: 'Intermediate region', nodes:null, parent:null, text:'phosphoprotein M1', label:'display_name'},
-                            {name:'m49_sub_region_id', display_name: "Sub-region", nodes:null, parent:null, text:'M2 protein', label:'display_name'},
-                            {name:'m49_code', display_name: "Country", nodes:null, parent:null, text:'transmembrane glycoprotein G', label:'display_name'},
-                            {name:'m49_code', display_name: "Country", nodes:null, parent:null, text:'L protein', label:'display_name'}
-    ]
+                          {name:'full_genome', display_name: 'full genome', nodes:null, parent:null, text:'Full genome', label:'display_name'},
+                          {name:'nucleoprotein', display_name: 'Nucleoprotein', nodes:null, parent:null, text:'nucleoprotein N', label:'display_name'},
+                          {name:'phosphoprotein', display_name: 'Phosphoprotein', nodes:null, parent:null, text:'phosphoprotein M1', label:'display_name'},
+                          {name:'m2_protein', display_name: "M2 protein", nodes:null, parent:null, text:'M2 protein', label:'display_name'},
+                          {name:'glycoprotein', display_name: "Glycoprotein", nodes:null, parent:null, text:'transmembrane glycoprotein G', label:'display_name'},
+                          {name:'l_protein', display_name: "L protein", nodes:null, parent:null, text:'L protein', label:'display_name'}
+                        ]
 
 
     const handleChange = (name) => {
@@ -59,20 +60,6 @@ export default function GenomeCoverageDropdown({label, handleParams, reset, alwa
 
     }
 
-    const handleNodeIds = (nodeName) => (ids) => {
-      setRegionSelections(prev => {
-          if (!ids || ids.length === 0) {
-              const copy = { ...prev }
-              delete copy[nodeName]
-              return copy
-          }
-          return {
-              ...prev,
-              [nodeName]: ids
-          }
-      })   
-    }
-
     const clearInputs = () => {
       setRegionSelections({})
       setSelected([])
@@ -80,7 +67,20 @@ export default function GenomeCoverageDropdown({label, handleParams, reset, alwa
       setExclude(false)
     };
 
+    const handleInputChange = (type, value) => {
 
+      setRegionSelections(prev => {
+          if (!value || value === 0) {
+              const copy = { ...prev }
+              delete copy[type]
+              return copy
+          }
+          return {
+              ...prev,
+              [type]: value
+          }
+      })   
+    };
 
     useEffect(() => {
       Object.keys(regionSelections).length > 0 ? setSelectedValue(Object.keys(regionSelections).length) : setSelectedValue(false)
@@ -171,13 +171,38 @@ export default function GenomeCoverageDropdown({label, handleParams, reset, alwa
 
                   {selected.includes(node.name) && (
                     <div style={{padding: '5px 0px 0px 20px'}}>
-                        <RegionFilter ref={autocompleteRef}
-                                        label={node.display_name} 
-                                        region_level={node.name} 
-                                        idKey={node.label} 
-                                        params={regionSelections} 
-                                        handleId={handleNodeIds(node.name)} 
-                        />
+                      <TextField
+                        placeholder={`Enter lower length`}
+                        size="small"
+                        // value={max}
+                        onChange={(e) => handleInputChange(node.name, e.target.value)}
+                        sx={{
+                          width: 220,
+                          "& .MuiOutlinedInput-root": {
+                            minHeight: 25,
+                            fontSize: "0.75rem",
+                          },
+                          "& .MuiAutocomplete-tag": {
+                            height: 20,
+                            fontSize: "0.75rem",
+                          },
+                        }}
+                        InputProps={{
+
+                          startAdornment: (
+                            <>
+                              <InputAdornment position="start">
+                                <SearchIcon fontSize="small" />
+                              </InputAdornment>
+                            </>
+                          ),
+                          endAdornment: (
+                            <>
+                              
+                            </>
+                          ),
+                        }}
+                      />
                     </div>
                   )}
 
@@ -193,7 +218,7 @@ export default function GenomeCoverageDropdown({label, handleParams, reset, alwa
                 checked={exclude}
                 onChange={(e) => setExclude(e.target.checked)}
               />
-              Exclude selected regions
+              Exclude selected coverage
             </label>            
           </div>
         </div>

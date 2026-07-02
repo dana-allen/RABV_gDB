@@ -15,7 +15,6 @@ const DropDownAutocomplete = ({ref, url, label, idKey, params, handleId, preSele
 
   const [ids, setIds] = useState([]) 
   const newParams = params && params.split(',')
-  console.log("newParams",newParams)
 
   const handleChange = (event, value) => {
     console.log(value)

@@ -5,13 +5,14 @@ import { Button } from 'react-bootstrap';
 import Checkboxes from "./Checkboxes";
 import 'assets/styles/filters.css';
 
+import FilterWrapper from "./FilterWrapper";
+import { useLineage } from "hooks";
+
 export default function CladeCheckboxes({label, id, url, handleParams, reset}) {
 
-  const [open, setOpen] = useState(false);
-  const [exclude, setExclude] = useState(false);
-  const containerRef = useRef(null);
-  const autocompleteRef = useRef(null);
+  const { lineageTree = [], loading, error } = useLineage();
 
+  const [exclude, setExclude] = useState(false);
   const [selectedValue, setSelectedValue ] = useState()
   const [preSelected, setPreselected] = useState()
 
@@ -33,15 +34,6 @@ export default function CladeCheckboxes({label, id, url, handleParams, reset}) {
   }, [preSelected, exclude]);
 
     
-  useEffect(() => {
-    function handleClickOutside(event) {
-      const inDropdown = containerRef.current?.contains(event.target);
-      const inAutocomplete = autocompleteRef.current?.contains(event.target);
-      if (!inDropdown && !inAutocomplete) { setOpen(false); }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   useEffect(() => {
     setPreselected()
@@ -50,39 +42,29 @@ export default function CladeCheckboxes({label, id, url, handleParams, reset}) {
   }, [reset])
 
   return (
-    <div ref={containerRef} className='filter-box'>
+    <FilterWrapper
+      label={label}
+      selectedCount={selectedValue}
+      reset={reset}
+    >
+      <Checkboxes
+        data={lineageTree}
+        onCheckboxChange={handleIds}
+        preSelected={preSelected}
+      />
 
-      <Button
-        size="sm"
-        className={`${selectedValue ? "btn-filter-active" : "btn-filter"}`}
-        onClick={() => setOpen((prev) => !prev)}> 
-        {label} {selectedValue && ( <span className='filter-count'> {selectedValue} </span> )}
-      </Button>
+      <hr className="exclude-hr" />
 
-      {open && (
-        <div className='dropdown-box'>
-          <div style={{ marginBottom: "10px" }}>
-            <label style={{ fontSize: "12px", fontWeight: "bold" }}>
-              Find {label}
-            </label>
-            <Checkboxes 
-              onCheckboxChange={(data) => {handleIds(data)}}
-              preSelected={preSelected}
-            />
+      <label className="exclude-label">
+        <input
+          className="exclude-checkbox"
+          type="checkbox"
+          checked={exclude}
+          onChange={e => handleExclude(e.target.checked)}
+        />
+        Exclude selected accessions
+      </label>
 
-            <hr className='exclude-hr'/>
-            <label className='exclude-label'>
-              <input
-                className='exclude-checkbox'
-                type="checkbox"
-                checked={exclude}
-                onChange={ (e) => handleExclude(e.target.checked) }
-              />
-              Exclude selected accessions
-            </label>
-          </div>
-        </div>
-      )}
-    </div>
+    </FilterWrapper>
   );
 }
