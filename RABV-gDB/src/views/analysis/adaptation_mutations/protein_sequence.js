@@ -10,7 +10,7 @@ import "assets/styles/protein_sequence.css";
 
 import { aaColors, nucColors } from 'assets/javascript/sequenceViewerHelper';
 import GeneTree from './GeneTree';
-
+import GeneSelector from './GeneSelector'
 
 export default function ProteinSequence({reference_protein, residueClick, regionClick}) {
 
@@ -51,7 +51,8 @@ export default function ProteinSequence({reference_protein, residueClick, region
             <Button size="sm">Download PNG</Button>
             </div>
             <div style={{ display: "flex", gap: "20px", alignItems: "flex-start" }}>
-                <GeneTree onRegionSelect={handleRegionSelection} ></GeneTree>
+                {/* <GeneTree onRegionSelect={handleRegionSelection} ></GeneTree> */}
+                <GeneSelector onRegionSelect={handleRegionSelection} ></GeneSelector>
                 <div className="protein-sequence">
                     
                     {rows.map((row, rowIndex) => {

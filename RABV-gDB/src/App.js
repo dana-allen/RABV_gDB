@@ -96,6 +96,7 @@ function App() {
                 {/* Analysis */}
                 <Route path="/clade_assignment"     element={<CladeAssignment />} />
                 <Route path="/maddog"               element={<Maddog />} />
+                <Route path="/mutation_explorer"    element={<Mutations />} />
 
 
                 {/* Other */}

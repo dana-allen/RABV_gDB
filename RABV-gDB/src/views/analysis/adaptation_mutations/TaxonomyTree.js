@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import TaxonomyFilter from 'views/analysis/adaptation_mutations/TaxonomyFilter'
 
-const TaxonomyTree = ({ onTaxaSelect }) => {
+const TaxonomyTree = ({ onTaxaSelect}) => {
 
     const [taxonomySelections, setTaxonomySelections] = useState({})
     const [selected, setSelected] = useState([])

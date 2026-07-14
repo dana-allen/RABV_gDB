@@ -33,7 +33,6 @@ const Phylogeny = () => {
       setSourceData({
               status: "loaded",
               filename: "tree.nwk",
-              // data: tree,
               data: trees[0].newick,
               filetype: "nwk",
               metadata: metadata,
@@ -66,6 +65,15 @@ const Phylogeny = () => {
 
   }
 
+  const handleNodeSelect = (nodeId) => {
+    console.log("Node selected:", nodeId);
+  };
+
+  const handleNodeDetailsLoaded = (nodeId, nodeDetails) => {
+    console.log("Node details loaded:", nodeId, nodeDetails);
+  };
+
+
 
 
   return (
@@ -89,7 +97,7 @@ const Phylogeny = () => {
           </div>
         }
 
-        {sourceData && <Taxonium key={selectedTree.name} sourceData={sourceData} /> }
+        {sourceData && <Taxonium key={selectedTree.name} sourceData={sourceData} onNodeSelect={handleNodeSelect} onNodeDetailsLoaded={handleNodeDetailsLoaded}/> }
 
       </div>
       

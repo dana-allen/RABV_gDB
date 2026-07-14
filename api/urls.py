@@ -14,7 +14,7 @@ urlpatterns = [
 
     path('sequences/global/', api_sequences_global, name='api_sequences_global'),
     path('lineages/', api_lineages, name='api_lineages'),
-    path('host_mutation/<str:seqment>', api_host_mutation, name='api_host_mutation'),
+    path('host_mutation/<str:segment>', api_host_mutation, name='api_host_mutation'),
 
     path('filters/search_primary_accession_ids/<str:query>', api_search_primary_accession, name='api_search_primary_accession'),
     path('filters/search_isolate_ids/<str:query>', api_search_isolate_ids, name='api_search_isolate_ids'),

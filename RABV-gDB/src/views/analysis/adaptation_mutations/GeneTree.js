@@ -39,16 +39,16 @@ const GeneTree = ({ onRegionSelect }) => {
     return (
         <div>
              <TreeView data={geneTree}
-                                        enableLinks={true}
-                                        expanded={true}
-                                        onClick={handleItemClick}
-                                        style={{
-                                            paddingLeft:0,
-                                            height: 240,
-                                            maxWidth: 400,
-                                            flexGrow: 1,
-                                        }} 
-                                />
+                    enableLinks={true}
+                    expanded={true}
+                    onClick={handleItemClick}
+                    style={{
+                        paddingLeft:0,
+                        height: 240,
+                        maxWidth: 400,
+                        flexGrow: 1,
+                    }} 
+            />
         </div>
     );
 };

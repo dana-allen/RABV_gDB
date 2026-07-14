@@ -11,7 +11,7 @@ import InputDropdown from './components/InputDropDown';
 import RadioButtonDropdown from './components/RadioButtonDropDown';
 import RegionDropdown from './components/RegionDropDown';
 import GenomeCoverageDropdown from './components/GenomeCoverageDropDown';
-
+import Dropdown from './components/DropDown';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
@@ -218,14 +218,14 @@ const BarFilter = ({ onApplyFilter, onClickReset }) => {
           handleParams={handleClades}
           reset={reset}
         />
-{/* 
-        <CommonHostDropdown
-          label={'Host'}
+
+        <Dropdown
+          label={'Common Host'}
           id={'host'}
           url={'/api/filters/search_hosts/'}
           handleParams={handleHost}
           reset={reset}
-        /> */}
+        />
         
         <RegionDropdown
           label={'Region'}

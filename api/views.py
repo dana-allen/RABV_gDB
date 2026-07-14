@@ -141,7 +141,7 @@ def api_lineages(request):
     return proxy_get("lineages/", request, safe=False)
 
 def api_host_mutation(request, segment):
-    return proxy_get("adaptive_mutations_chart/", request)
+    return proxy_get("adaptive_mutations/", request)
 
 def api_search_primary_accession(request, query):
     return proxy_get(f"filters/search_primary_accession_ids/{query}", request, safe=False)

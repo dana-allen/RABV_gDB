@@ -28,10 +28,10 @@ export default function GenomeCoverageDropdown({label, handleParams, reset, alwa
     }, []);
 
     const [regionSelections, setRegionSelections] = useState({})
-    const [selected, setSelected] = useState([])
+    const [selected, setSelected] = useState(null)
 
     const regionTree = [
-                          {name:'full_genome', display_name: 'full genome', nodes:null, parent:null, text:'Full genome', label:'display_name'},
+                          // {name:'full_genome', display_name: 'full genome', nodes:null, parent:null, text:'Full genome', label:'display_name'},
                           {name:'nucleoprotein', display_name: 'Nucleoprotein', nodes:null, parent:null, text:'nucleoprotein N', label:'display_name'},
                           {name:'phosphoprotein', display_name: 'Phosphoprotein', nodes:null, parent:null, text:'phosphoprotein M1', label:'display_name'},
                           {name:'m2_protein', display_name: "M2 protein", nodes:null, parent:null, text:'M2 protein', label:'display_name'},
@@ -39,26 +39,18 @@ export default function GenomeCoverageDropdown({label, handleParams, reset, alwa
                           {name:'l_protein', display_name: "L protein", nodes:null, parent:null, text:'L protein', label:'display_name'}
                         ]
 
+  const handleChange = (name) => {
 
-    const handleChange = (name) => {
+    const alreadySelected = selected === name
 
-      const wasSelected = selected.includes(name)
+    setSelected(alreadySelected ? null : name)
 
-      setSelected(prev =>
-        wasSelected
-            ? prev.filter(item => item !== name)
-            : [...prev, name]                      
-      )
-
-      if (wasSelected) {
-        setRegionSelections(prev => {
-            const copy = { ...prev }
-            delete copy[name]
-            return copy
-        })
-      }
-
+    if (alreadySelected) {
+      setRegionSelections({})
+    } else {
+      setRegionSelections({})
     }
+  }
 
     const clearInputs = () => {
       setRegionSelections({})
@@ -83,9 +75,11 @@ export default function GenomeCoverageDropdown({label, handleParams, reset, alwa
     };
 
     useEffect(() => {
-      Object.keys(regionSelections).length > 0 ? setSelectedValue(Object.keys(regionSelections).length) : setSelectedValue(false)
+      setSelectedValue(
+        Object.keys(regionSelections).length > 0 ? 1 : false
+      )
       handleParams(regionSelections, exclude)
-    }, [regionSelections, exclude]);
+    }, [regionSelections, exclude])
 
     useEffect(() => {
       clearInputs()
@@ -151,28 +145,29 @@ export default function GenomeCoverageDropdown({label, handleParams, reset, alwa
                       }}
                   >
                     <input
-                        type="checkbox"
-                        checked={selected.includes(node.name)}
+                        type="radio"
+                        name="coverage-region"
+                        checked={selected === node.name}
                         onChange={() => handleChange(node.name)}
                         style={{
-                            appearance: "none",
-                            width: "16px",
-                            height: "16px",
-                            border: "1px solid #767676",
-                            borderRadius: "3px",
-                            backgroundColor: selected.includes(node.name)
+                          appearance: "none",
+                          width: "16px",
+                          height: "16px",
+                          border: "1px solid #767676",
+                          borderRadius: "50%",
+                          backgroundColor: selected === node.name
                               ? "var(--primary)"
                               : "white",
-                            cursor: "pointer",
-                        }}
+                          cursor: "pointer",
+                      }}
                     />
                     <span style={{ fontSize:"12px" }}>{node.text}</span>
                   </label>
 
-                  {selected.includes(node.name) && (
+                  {selected === node.name && (
                     <div style={{padding: '5px 0px 0px 20px'}}>
                       <TextField
-                        placeholder={`Enter lower length`}
+                        placeholder={`Enter minimum coverage (%)`}
                         size="small"
                         // value={max}
                         onChange={(e) => handleInputChange(node.name, e.target.value)}
@@ -209,7 +204,7 @@ export default function GenomeCoverageDropdown({label, handleParams, reset, alwa
               </div>
             ))}
           </div>
-          <hr className='exclude-hr'/>
+          {/* <hr className='exclude-hr'/>
           <div style={{ marginBottom: "10px" }}>
             <label className='exclude-label'>
               <input
@@ -220,7 +215,7 @@ export default function GenomeCoverageDropdown({label, handleParams, reset, alwa
               />
               Exclude selected coverage
             </label>            
-          </div>
+          </div> */}
         </div>
       )}
     </div>

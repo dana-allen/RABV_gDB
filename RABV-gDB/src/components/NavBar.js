@@ -25,7 +25,7 @@ const NavBar = () => {
               <a className="dropdown-item" href="/sequences">Sequences</a>
               <a className="dropdown-item" href="/references">References</a>
               <a className="dropdown-item" href="/global_overview">Global Overview</a>
-              <a className="dropdown-item" href="/phylogeny">Phylogenetic Trees</a>
+              {/* <a className="dropdown-item" href="/phylogeny">Phylogenetic Trees</a> */}
               {/* <a className="dropdown-item" href="/advanced_search">Advanced Search</a> */}
             </div>
           </li>
@@ -35,7 +35,7 @@ const NavBar = () => {
             <a className="nav-link dropdown-toggle custom-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Analyse</a>
             <div className="dropdown-menu">
               <a className="dropdown-item" href="/clade_assignment">Phylogenetic Clade Submission</a>
-              {/* <a className="dropdown-item" href="/mutations">Host Mutations </a> */}
+              <a className="dropdown-item" href="/mutation_explorer">Host Mutations </a>
               <a className="dropdown-item" href="/maddog">MADDOG</a>
             </div>
           </li>

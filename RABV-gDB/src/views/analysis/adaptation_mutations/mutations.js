@@ -9,6 +9,8 @@ import ProteinSequence from './protein_sequence';
 import Typography from '@mui/material/Typography';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+
+
 function groupByHost(translated_sequences, residue, selectedRegion) {
 
     const counts = {};
@@ -136,14 +138,14 @@ const Mutations = () => {
     const [params, setParams] = useState(null)
     const [selectedResidue, setSelectedResidue] = useState(1)
     const [selectedRegion, setSelectedRegion] = useState('nucleoprotein N')
+    const [reset, setReset] = useState(false)
 
     const { translated_reference_sequences, translated_sequences, loading, error } = useHostMutation('1', queryParams);
 
     const handleTaxonomySelection = (data) => { setParams(data) };
     
-    const handleRegionSelection = () => { };
 
-    const handleReset = () => { };
+    const handleReset = () => {  };
 
     const handleSubmit = () => { setQueryParams(params) };
 
@@ -157,9 +159,7 @@ const Mutations = () => {
         }
     }, [translated_reference_sequences, selectedRegion]);
 
-    console.log("referenceProtein", referenceProtein)
 
-    console.log("selectedRegion", selectedRegion)
     return (
         <div className='container'>
             <h2>Host Mutations Explorer</h2>
@@ -171,11 +171,10 @@ const Mutations = () => {
             </p>
             <div className='row'>
               <div className='col-3'>
-                <TaxonomyTree onTaxaSelect={handleTaxonomySelection} ></TaxonomyTree>
+                <TaxonomyTree onTaxaSelect={handleTaxonomySelection}></TaxonomyTree>
                     <div className="d-flex justify-content-between mt-3">
                         <ButtonGroup>
                             <Button className="btn-main" onClick={handleReset}> Reset </Button>
-                            {/* <Button className="btn-main-filled" onClick={handleSubmit}> Submit </Button> */}
                             <Button
                                 className={`btn ${loading ? "btn-main-outline" : "btn-main-filled"}`}
                                 onClick={handleSubmit}
@@ -232,11 +231,7 @@ const Mutations = () => {
                         }}
                         /> 
                       }
-                      <ul style={{marginLeft: '30px', marginRight: '30px', fontSize:'12px'}}>
-                        <li>Amino acid positions for HA mutations are based on mature peptide numbering.</li> 
-                        <li>Amino acid positions for mutations in all other segments are based on full-length 
-                        protein numbering.</li>
-                      </ul>
+                      
                   </div>
                   :
                   <div style={{ display:'flex',
@@ -260,68 +255,19 @@ const Mutations = () => {
                 }
 
    
-</div>
             </div>
-            
-
-            {/* {xLabels ? 
-                  <div>
-                  
-                    <BarChart
-            
-                      //   onItemClick={(event, d) => clickHandler(event, d, series)}
-                        xAxis={[
-                          {
-                            scaleType: "band",
-                            data: xLabels.map(({ label }) => label),
-                            label: "Amino Acid",
-                          },
-                        ]}
-                        yAxis={[{ label: "Frequency (%)" }]} // Ensure Y-axis is 0-100%
-                        series={series}
-                        height={400}
-                        slotProps={{
-                        legend: {
-                          sx: {
-                            fontSize: 14,
-                          
-                            
-                          },
-                        },
-                      }}
-                      /> 
-                      <ul style={{marginLeft: '30px', marginRight: '30px', fontSize:'12px'}}>
-                        <li>Amino acid positions for HA mutations are based on mature peptide numbering.</li> 
-                        <li>Amino acid positions for mutations in all other segments are based on full-length 
-                        protein numbering.</li>
-                      </ul>
-                  </div>
-                  :
-                  <div style={{ display:'flex',
-                                'justify-content':'center', 
-                                'align-items':'center',
-                                'height':'100%'  }}>
-                    <div className='align-center'>
-
-                      <RotatingLines visible={true}
-                            height="45"
-                            width="45"
-                            strokeColor="var(--primary)"
-                            strokeWidth="5"
-                            animationDuration="1"
-                            ariaLabel="rotating-lines-loading"
-                            wrapperStyle={{}}
-                            wrapperClass=""/>
-        </div>
-                  </div>
-
-                } */}
-                <div className='row'>
-                    {referenceProtein && <ProteinSequence reference_protein={referenceProtein.protein} residueClick={setSelectedResidue} regionClick={setSelectedRegion}/>}
-                </div>
+            </div>
+        
+            <div className='row'>
+                {referenceProtein && 
+                    <ProteinSequence reference_protein={referenceProtein.protein} 
+                                        residueClick={setSelectedResidue} 
+                                        regionClick={setSelectedRegion}/>
+                }
+            </div>
                 
             <br></br>
-            {/* {mutationsData.length > 0 && <MutationsTable mutations={mutationsData} />} */}
+
         </div>
     );
 };
