@@ -26,7 +26,7 @@ const SearchAutocomplete = ({ ref, label, url, idKey, handleId, preSelected = []
         if (query.length > 2) {
           setLoading(true);
           try {
-            const res = await fetch(`${url}${query}`);
+            const res = await fetch(`${url}${query}`, {headers: { database: process.env.REACT_APP_DATABASE }});
             const data = await res.json() || [];
 
             // Merge with already selected options so chips are visible
@@ -45,6 +45,56 @@ const SearchAutocomplete = ({ ref, label, url, idKey, handleId, preSelected = []
       }, 300),
     [url, selectedOptions, idKey]
   );
+
+  const handleInputChange = async (value) => {
+    setInputValue(value);
+
+    
+
+    const ids = value
+      .split(/[,\t\r\n| ]+/)
+      .map(v => v.replace(/\|/g, "").trim())
+      .filter(v => v && !/^[-]+$/.test(v));
+
+    if (ids.length  <= 1){
+      return
+    } else {
+
+    setLoading(true);
+
+    try {
+      const results = await Promise.all(
+        ids.map(async id => {
+          const res = await fetch(`${url}${id}`, {headers: { database: process.env.REACT_APP_DATABASE }});
+          const data = await res.json();
+
+          // adjust depending on your API
+          return Array.isArray(data) ? data[0] : data;
+        })
+      );
+
+      const selected = results.filter(Boolean);
+
+      setSelectedOptions(selected);
+      setOptions(selected);
+
+      handleId?.(selected.map(x => x[idKey]));
+    } finally {
+      setLoading(false);
+    }
+    }
+  };
+  // const handleInputChange = (value) => {
+  //   const tmp_value = value.split(',')
+  //   console.log("TEMP VALUE", tmp_value)
+  //   if (tmp_value.length > 0){
+  //     setInputValue(tmp_value)
+  //     setOptions(tmp_value)
+  //   } else {
+  //     setInputValue(value)
+  //   }
+  //   // AB009601,AB009663
+  // }
 
   useEffect(() => {
     if (inputValue) {
@@ -66,7 +116,8 @@ const SearchAutocomplete = ({ ref, label, url, idKey, handleId, preSelected = []
         getOptionLabel={(option) => option[idKey] || ""}
         loading={loading}
         filterOptions={(x) => x} // prevent filtering out selected items
-        onInputChange={(event, value) => setInputValue(value)}
+        // onInputChange={(event, value) => setInputValue(value)}
+        onInputChange={(event, value) => handleInputChange(value)}
         onChange={(e, value) => {
           setSelectedOptions(value);
           handleId?.(value.map(v => v[idKey]));

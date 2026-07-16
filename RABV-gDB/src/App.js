@@ -36,9 +36,8 @@ import ApiEndpoint from './views/documentation/api/api_endpoint';
 import Help from './views/documentation/help';
 import MetaData from './views/documentation/meta_data';
 
-import Installation from './views/documentation/installation';
 
-// import AdvancedSearch from './views/explore/advanced_search/advanced_search';
+
 import { LoadingWheelProvider } from './contexts/LoadingWheelContext';
 import LoadingWheel from './components/LoadingWheel';
 
@@ -100,8 +99,6 @@ function App() {
 
 
                 {/* Other */}
-                {/* <Route path="/installation"        element={<Installation />} /> */}
-                {/* <Route path="/advanced_search"      element={<AdvancedSearch />} /> */}
                 <Route path="/meta_data"          element={<MetaData />} />
                 
 

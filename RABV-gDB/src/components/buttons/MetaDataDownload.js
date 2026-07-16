@@ -16,7 +16,7 @@ const MetaDataDownload = ({filters}) => {
                 query_params ? `?${query_params}` : ""
             }`;
 
-            const res = await fetch(url);
+            const res = await fetch(url, {headers: { database: process.env.REACT_APP_DATABASE }});
 
             const blob = await res.blob();
 

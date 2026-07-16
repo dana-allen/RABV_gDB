@@ -88,7 +88,7 @@ const Phylogeny = () => {
         {trees && <TreeTable data={trees} onTreeClick={handleTreeClick} />}
       </div>
       <div>
-        {selectedTree && <h2>{selectedTree.name}</h2> }
+        {selectedTree && <h2>{selectedTree.tree_type}</h2> }
         {selectedTree &&
           <div style={{'textAlign':'right'}}> 
             <Button size='sm' className='btn-main-filled' onClick={() => downloadFile(selectedTree.newick, selectedTree.name+".newick", "newick")}>

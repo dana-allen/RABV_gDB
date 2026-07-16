@@ -22,7 +22,7 @@ const DropDownAutocomplete = ({ref, url, label, idKey, params, handleId, preSele
     handleId(`${value}`)
   }
 
-  const { data, loading, error } = useFetch(url);
+  const { data, loading, error } = useFetch(url, {headers: { database: process.env.REACT_APP_DATABASE }});
 
   useEffect(() => {
     if (data){ setIds(data) }

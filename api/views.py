@@ -6,8 +6,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 # Replace with your private API URL
 
-PRIVATE_API_BASE_URL = "http://gdb-dev.cvr.gla.ac.uk/api"
-# PRIVATE_API_BASE_URL = "http://localhost:8001/api"
+# PRIVATE_API_BASE_URL = "http://gdb-dev.cvr.gla.ac.uk/api"
+PRIVATE_API_BASE_URL = "http://localhost:8001/api"
 
 def proxy_get_download(endpoint, request=None, safe=True):
     """
@@ -23,7 +23,10 @@ def proxy_get_download(endpoint, request=None, safe=True):
         if query_string:
             url = f"{url}?{query_string}"
 
-        response = requests.get(url, timeout=10)
+        database = request.headers.get("database", "RABV")
+        headers = {"database": database}
+
+        response = requests.get(url, headers=headers, timeout=10)
 
         response.raise_for_status()
 
@@ -56,7 +59,10 @@ def proxy_get(endpoint, request=None, safe=True):
             if query_string:
                 url = f"{url}?{query_string}"
 
-        response = requests.get(url, timeout=5)
+        database = request.headers.get("database", "RABV")
+        headers = {"database": database}
+
+        response = requests.get(url, headers=headers, timeout=10)
         response.raise_for_status()
         data = response.json()
         
@@ -131,8 +137,8 @@ def api_sequence_reference(request, seq_id):
 def api_taxonomy(request, taxa_level):
     return proxy_get(f"taxonomy/{taxa_level}", request, safe=False)
 
-def api_phylogeny_tree(request):
-    return proxy_get("phylogeny/tree/", request)
+def api_phylogeny_trees(request):
+    return proxy_get("phylogeny/trees/", request)
 
 def api_sequences_global(request):
     return proxy_get("sequences/global/", request, safe=False)
@@ -140,8 +146,20 @@ def api_sequences_global(request):
 def api_lineages(request):
     return proxy_get("lineages/", request, safe=False)
 
-def api_host_mutation(request, segment):
-    return proxy_get("adaptive_mutations/", request)
+
+
+
+
+
+
+def api_mutations_host_adaptation(request, segment):
+    return proxy_get("mutations/host_adaptation", request)
+
+
+
+
+
+
 
 def api_search_primary_accession(request, query):
     return proxy_get(f"filters/search_primary_accession_ids/{query}", request, safe=False)
@@ -164,8 +182,6 @@ def api_search_m49_sub_region(request):
 def api_search_m49_intermediate(request):
     return proxy_get(f"filters/search_m49_intermediate/", request, safe=False)
 
-def api_version(request):
-    return proxy_get(f"get_vgt_version/", request, safe=False)
 
 def api_download_sequences_meta_data(request):
     return proxy_get_download(f"sequences/download_sequences_meta_data/", request, safe=False)
