@@ -31,5 +31,4 @@ urlpatterns = [
 
     path('analysis/clade_assignment/', api_analysis_clade_assignment, name='api_analysis_clade_assignment'),
 
-    
 ]

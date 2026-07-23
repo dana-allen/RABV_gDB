@@ -24,6 +24,8 @@ const TaxonomyFilter = ({ref, label, taxa_level, idKey, params, handleId}) => {
     }
   }, [data]);
 
+  console.log(ids)
+
   const [selectedOptions, setSelectedOptions] = useState(newParams)
 
   return (

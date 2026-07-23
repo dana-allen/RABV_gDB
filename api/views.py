@@ -146,20 +146,8 @@ def api_sequences_global(request):
 def api_lineages(request):
     return proxy_get("lineages/", request, safe=False)
 
-
-
-
-
-
-
 def api_mutations_host_adaptation(request, segment):
     return proxy_get("mutations/host_adaptation", request)
-
-
-
-
-
-
 
 def api_search_primary_accession(request, query):
     return proxy_get(f"filters/search_primary_accession_ids/{query}", request, safe=False)
