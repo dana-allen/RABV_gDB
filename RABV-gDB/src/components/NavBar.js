@@ -35,7 +35,7 @@ const NavBar = () => {
             <a className="nav-link dropdown-toggle custom-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Analyse</a>
             <div className="dropdown-menu">
               <a className="dropdown-item" href="/clade_assignment">Phylogenetic Clade Submission</a>
-              {/* <a className="dropdown-item" href="/mutation_explorer">Host Mutations </a> */}
+              <a className="dropdown-item" href="/mutation_explorer">Host Mutations </a>
               <a className="dropdown-item" href="/maddog">MADDOG</a>
             </div>
           </li>
