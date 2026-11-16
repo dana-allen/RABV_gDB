@@ -30,6 +30,11 @@ const SequenceDetails = ({ meta_data, alignment }) => {
                         <td><b>Clade</b></td>
                         <td>{meta_data["EPA_major_clade"] ? meta_data["EPA_major_clade"] : "" }  {meta_data["EPA_minor_clade"] ? meta_data["EPA_minor_clade"] : ""}</td>
                     </tr>
+                    <tr>
+                        <td><b>MADDOG Lineage</b></td>
+                        <td>{meta_data["maddog_lineage"] ? meta_data["maddog_lineage"] : "-"}</td>
+
+                    </tr>
                     {meta_data["serotype"] &&
                         <tr>				
                             <td><b>Serotype</b></td>

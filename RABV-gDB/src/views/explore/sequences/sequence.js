@@ -47,7 +47,7 @@ const Sequence = () => {
         if (error) triggerError(error);
     
     }, [loading, error]);
-    console.log("alignment", alignment)
+    console.log(insertions)
 
     const pubmedId = meta_data?.pubmed_id;
 

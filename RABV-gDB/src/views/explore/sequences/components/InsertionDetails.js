@@ -13,7 +13,7 @@ const InsertionDetails = ({ insertions }) => {
                 <h4 className='title-sub'>Insertions</h4>
             </div>
             <div>
-                {insertions.map((insertion, insertionIndex) => {
+                {[insertions].map((insertion, insertionIndex) => {
                     const row = insertion ? insertion.split(";") : null
                     return (
                         <>

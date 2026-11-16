@@ -18,6 +18,7 @@ const SequencesTable = ( { data=null, type=null } ) => {
                 <tr>
                     <th>NCBI Primary Accession</th>
                     <th>{process.env.REACT_APP_VIRUS_LEVEL}</th>
+                    <th>MADDOG</th>
                     <th>NCBI Entry Creation Date</th>
                     <th>NCBI Last Update Date</th>
                     <th>Sequence Length</th>
@@ -35,6 +36,7 @@ const SequencesTable = ( { data=null, type=null } ) => {
 
                         <td><b><Link className='gdb-link' to={type=='sequence' ? `/sequence/${sequence.primary_accession}`:`/reference/${sequence.primary_accession}` }> {sequence.primary_accession} </Link> </b></td>
                         <td>{sequence["EPA_major_clade"]} {sequence["EPA_minor_clade"]}</td>
+                        <td>{sequence.maddog_lineage}</td>
                         <td>{sequence.create_date}</td>
                         <td>{sequence.update_date}</td>
                         <td>{sequence.real_length}</td>
