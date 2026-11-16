@@ -14,6 +14,7 @@ urlpatterns = [
 
     path('sequences/global/', api_sequences_global, name='api_sequences_global'),
     path('lineages/', api_lineages, name='api_lineages'),
+    path('lineages/maddog', api_maddog_lineages, name='api_maddog_lineages'),
     path('mutations/host_adaptation/<str:segment>', api_mutations_host_adaptation, name='api_mutations_host_adaptation'),
 
     path('filters/search_primary_accession_ids/<str:query>', api_search_primary_accession, name='api_search_primary_accession'),

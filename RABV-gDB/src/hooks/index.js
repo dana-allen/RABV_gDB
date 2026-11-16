@@ -15,7 +15,7 @@ export { default as useRegion } from "./useRegion";
 
 export { default as useErrorHandler } from "./useErrorHandler";
 export { default as useDownload } from "./useDownload";
-
+export { default as useMaddog } from "./useMaddog";
 
 
 export { default as useFetch } from "./useFetch";

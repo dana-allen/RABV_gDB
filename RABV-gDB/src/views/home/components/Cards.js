@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSitemap, faGear, faCapsules, faVirus, faGlobe, faDna, faToolbox, faHexagonNodes, faCircleNodes } from '@fortawesome/free-solid-svg-icons'
+import { faSitemap, faGear, faCapsules, faVirus, faGlobe, faDna, faToolbox, faHexagonNodes, faCircleNodes, faLayerGroup } from '@fortawesome/free-solid-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import Button from 'react-bootstrap/Button';
 
 import 'assets/styles/cards.css'
 
 
-library.add(faSitemap, faGear, faCapsules, faVirus, faGlobe, faDna, faToolbox);
+library.add(faSitemap, faGear, faCapsules, faVirus, faGlobe, faDna, faToolbox, faLayerGroup);
 
 const tabs = ["Explore", "Analyse", "About"];
 
@@ -19,7 +19,8 @@ const exploreItems = [
 
 const analysisItems = [
   { title: "Phylogenetic Clade Submission", description: "Tool providing genotyping analysis and visualisation of submitted FASTA sequences.", icon: faGear, link:'/clade_assignment' },
-//   { title: "Host Mutations", description: "Identify mutations among different hosts.", icon: faDna, link:'/mutations' }
+  { title: "Host Mutations", description: "Identify mutations among different hosts.", icon: faDna, link:'/mutation_explorer' },
+  { title: "MADDOG", description: "Phylogenetic tool for classifying rabies virus and other virus genomes into a consistent, hierarchical lineage nomenclature", icon: faLayerGroup, link:'/maddog'}
 ];
 
 const aboutItems = [
