@@ -36,7 +36,7 @@ const NavBar = () => {
             <div className="dropdown-menu">
               <a className="dropdown-item" href="/clade_assignment">Phylogenetic Clade Submission</a>
               <a className="dropdown-item" href="/mutation_explorer">Host Mutations </a>
-              <a className="dropdown-item" href="/maddog">MADDOG</a>
+              <a className="dropdown-item" href="/maddog">MADDOG-V2</a>
             </div>
           </li>
 

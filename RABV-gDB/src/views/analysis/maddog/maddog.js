@@ -19,11 +19,14 @@ const Maddog = () => {
 
     return (
         <div className="container" >
-        <h2>MADDOG Lineages</h2>
+        <h2>MADDOG-V2 Lineages</h2>
 
         <p>
             MADDOG (Method for Assignment, Definition and Designation Of Global lineages) is a phylogenetic tool 
             for classifying rabies virus and other virus genomes into a consistent, hierarchical lineage nomenclature.
+        </p>
+        <p>
+            The module is stil under development. Please check back soon for more updates.
         </p>
 
         <hr/>
